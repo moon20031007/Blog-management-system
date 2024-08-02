@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.mapper.AccountMapper">
+
+    <resultMap id="BaseResultMap" type="com.blog.pojo.Account">
+        <id property="accountId" column="account_id" jdbcType="INTEGER"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="OTHER"/>
+        <result property="birthday" column="birthday" jdbcType="DATE"/>
+        <result property="phone" column="phone" jdbcType="CHAR"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="email" column="email" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        account_id,username,password,
+        nickname,gender,birthday,
+        phone,address,email
+    </sql>
+
+    <select id="selectByUsername" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from account
+        where username = #{username,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from account
+        where account_id = #{accountId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from account
+        where  account_id = #{accountId,jdbcType=INTEGER} 
+    </delete>
+
+    <insert id="insert" keyColumn="account_id" keyProperty="accountId" parameterType="com.blog.pojo.Account" useGeneratedKeys="true">
+        insert into account
+        ( account_id,username,password
+        ,nickname,gender,birthday
+        ,phone,address,email
+        )
+        values (#{accountId,jdbcType=INTEGER},#{username,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR}
+        ,#{nickname,jdbcType=VARCHAR},#{gender,jdbcType=OTHER},#{birthday,jdbcType=DATE}
+        ,#{phone,jdbcType=CHAR},#{address,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <insert id="insertSelective" keyColumn="account_id" keyProperty="accountId" parameterType="com.blog.pojo.Account" useGeneratedKeys="true">
+        insert into account
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="accountId != null">account_id,</if>
+            <if test="username != null">username,</if>
+            <if test="password != null">password,</if>
+            <if test="nickname != null">nickname,</if>
+            <if test="gender != null">gender,</if>
+            <if test="birthday != null">birthday,</if>
+            <if test="phone != null">phone,</if>
+            <if test="address != null">address,</if>
+            <if test="email != null">email,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="accountId != null">#{accountId,jdbcType=INTEGER},</if>
+            <if test="username != null">#{username,jdbcType=VARCHAR},</if>
+            <if test="password != null">#{password,jdbcType=VARCHAR},</if>
+            <if test="nickname != null">#{nickname,jdbcType=VARCHAR},</if>
+            <if test="gender != null">#{gender,jdbcType=OTHER},</if>
+            <if test="birthday != null">#{birthday,jdbcType=DATE},</if>
+            <if test="phone != null">#{phone,jdbcType=CHAR},</if>
+            <if test="address != null">#{address,jdbcType=VARCHAR},</if>
+            <if test="email != null">#{email,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.blog.pojo.Account">
+        update account
+        <set>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="nickname != null">
+                nickname = #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="gender != null">
+                gender = #{gender,jdbcType=OTHER},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday,jdbcType=DATE},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=CHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where   account_id = #{accountId,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.blog.pojo.Account">
+        update account
+        set 
+            username =  #{username,jdbcType=VARCHAR},
+            password =  #{password,jdbcType=VARCHAR},
+            nickname =  #{nickname,jdbcType=VARCHAR},
+            gender =  #{gender,jdbcType=OTHER},
+            birthday =  #{birthday,jdbcType=DATE},
+            phone =  #{phone,jdbcType=CHAR},
+            address =  #{address,jdbcType=VARCHAR},
+            email =  #{email,jdbcType=VARCHAR}
+        where   account_id = #{accountId,jdbcType=INTEGER} 
+    </update>
+</mapper>
