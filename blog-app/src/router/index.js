@@ -11,50 +11,50 @@ import TagSearchPage from '../views/TagSearchPage.vue'
 Vue.use(VueRouter)
 
 const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: HomeView
-  },
-  {
-    path: '/tag',
-    name: 'tag',
-    component: TagView
-  },
-  {
-    path: '/log',
-    name: 'log',
-    component: LogView
-  },
-  {
-    path: '/lmessage',
-    name: 'lmessage',
-    component: LmessageView
-  },
-  {
-    path: '/write',
-    name: 'write',
-    component: WriteView
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: LoginView
-  },
-  {
-    path: '/signup',
-    name: 'signup',
-    component: SignupView
-  },
-  {
-    path: '/tag/:id',
-    name: 'Tag_id',
-    component: TagSearchPage
-  }
+    {
+        path: '/',
+        name: 'home',
+        component: HomeView
+    },
+    {
+        path: '/tag',
+        name: 'tag',
+        component: TagView
+    },
+    {
+        path: '/log',
+        name: 'log',
+        component: LogView
+    },
+    {
+        path: '/lmessage',
+        name: 'lmessage',
+        component: LmessageView
+    },
+    {
+        path: '/write',
+        name: 'write',
+        component: WriteView
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: LoginView
+    },
+    {
+        path: '/signup',
+        name: 'signup',
+        component: SignupView
+    },
+    {
+        path: '/tag/:id',
+        name: 'Tag_id',
+        component: TagSearchPage
+    }
 ]
 
 const router = new VueRouter({
-  routes
+    routes
 })
 
 export default router

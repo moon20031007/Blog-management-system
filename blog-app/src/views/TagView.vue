@@ -4,8 +4,8 @@
         <el-container class="centered-container">
             <el-main>
                 <el-row class="grid-row">
-                    <el-col v-for="Tag in Tags" :key="Tag.id" :span="6">
-                        <div @click="viewTag(Tag.id)" class="grid-item">{{ `${Tag.name}` }}</div>
+                    <el-col v-for="Tag in Tags" :key="Tag.tagId" :span="6">
+                        <div @click="viewTag(Tag.tagId)" class="grid-item">{{ `${Tag.tagName}` }}</div>
                     </el-col>
                 </el-row>
             </el-main>

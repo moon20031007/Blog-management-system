@@ -6,7 +6,9 @@
                 <p class="meta">By {{ article.author }} on {{ article.date }}</p>
             </header>
             <section>
-                <p>{{ article.excerpt }}</p>
+                <span><i class="el-icon-view">{{ article.read_count }}</i></span>
+                <span><i class="el-icon-chat-dot-round">{{ article.comment_count }}</i></span>
+                <span><i class="el-icon-star-off">{{ article.like_count }}</i></span>
             </section>
         </article>
     </div>

@@ -1,7 +1,8 @@
 <template>
     <div>
         <my-nav></my-nav>
-        <h1>{{ getTagName(id) }}</h1>
+        <h1>{{ this.Tag.tagName }}</h1>
+        <h2>{{ this.Tag.articleCount }}</h2>
         <my-art-list></my-art-list>
     </div>
 </template>
@@ -10,20 +11,9 @@
 import axios from 'axios';
 
 export default {
-    computed: {
-        id() {
-            return this.$route.params.id
-        }
-    },
     data() {
         return {
-            Tags: [
-                { id: 1, name: 'Vue.js' },
-                { id: 2, name: 'JavaScript' },
-                { id: 3, name: 'Web Development' },
-                { id: 4, name: 'Frontend' },
-                { id: 5, name: 'CSS' }
-            ]
+            Tag: {}
         }
     },
     async created() {
@@ -31,18 +21,14 @@ export default {
     },
     methods: {
         async fetchTag() {
-            axios.get(`/tag/detail/${this.id}`)
+            axios.get(`/tag/detail/${this.$route.params.id}`)
                 .then(response => {
-                    this.Tags = response.data.data;
+                    this.Tag = response.data.data;
                 })
                 .catch(error => {
                     console.error('获取标签失败:', error);
                     this.$message.error('获取标签失败');
                 });
-        },
-        getTagName(tagId) {
-            const tagItem = this.Tags.find(item => item.id === tagId);
-            return tagItem ? tagItem.name : 'Name not found';
         }
     }
 }
