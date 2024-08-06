@@ -23,18 +23,8 @@ export default {
             required: true
         }
     },
-    // data() {
-    //     return {
-    //         articles: [
-    //             { id: 1, title: 'Article 1', author: 'Author 1', date: '2024-08-01', excerpt: 'This is the excerpt for article 1.' },
-    //             { id: 2, title: 'Article 2', author: 'Author 2', date: '2024-08-02', excerpt: 'This is the excerpt for article 2.' },
-    //             // 更多文章数据
-    //         ]
-    //     }
-    // },
     methods: {
         viewArticle(id) {
-            // Navigate to the article detail page
             this.$router.push({ path: '/article', params: { id } });
         }
     }

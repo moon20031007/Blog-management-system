@@ -2,7 +2,7 @@
     <div>
         <my-nav></my-nav>
         <h1>{{ this.Tag.tagName }}</h1>
-        <h2>{{ this.Tag.articleCount }}</h2>
+        <h1>{{ this.Tag.articleCount }}</h1>
         <my-art-list :articles="this.Articles"></my-art-list>
     </div>
 </template>

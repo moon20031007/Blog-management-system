@@ -9,11 +9,12 @@
             <result property="commenterId" column="commenter_id" jdbcType="INTEGER"/>
             <result property="leaveTime" column="leave_time" jdbcType="TIMESTAMP"/>
             <result property="likeCount" column="like_count" jdbcType="INTEGER"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         lmessage_id,commenter_id,leave_time,
-        like_count
+        like_count,content
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -27,13 +28,15 @@
         delete from lmessage
         where  lmessage_id = #{lmessageId,jdbcType=INTEGER} 
     </delete>
+
     <insert id="insert" keyColumn="lmessage_id" keyProperty="lmessageId" parameterType="com.blog.pojo.Lmessage" useGeneratedKeys="true">
         insert into lmessage
         ( lmessage_id,commenter_id,leave_time
-        ,like_count)
+        ,like_count,content)
         values (#{lmessageId,jdbcType=INTEGER},#{commenterId,jdbcType=INTEGER},#{leaveTime,jdbcType=TIMESTAMP}
-        ,#{likeCount,jdbcType=INTEGER})
+        ,#{likeCount,jdbcType=INTEGER}),#{content,jdbcType=VARCHAR}
     </insert>
+
     <insert id="insertSelective" keyColumn="lmessage_id" keyProperty="lmessageId" parameterType="com.blog.pojo.Lmessage" useGeneratedKeys="true">
         insert into lmessage
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -41,35 +44,41 @@
                 <if test="commenterId != null">commenter_id,</if>
                 <if test="leaveTime != null">leave_time,</if>
                 <if test="likeCount != null">like_count,</if>
+                <if test="content != null">content,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
                 <if test="lmessageId != null">#{lmessageId,jdbcType=INTEGER},</if>
                 <if test="commenterId != null">#{commenterId,jdbcType=INTEGER},</if>
                 <if test="leaveTime != null">#{leaveTime,jdbcType=TIMESTAMP},</if>
                 <if test="likeCount != null">#{likeCount,jdbcType=INTEGER},</if>
+                <if test="content != null">#{content,jdbcType=VARCHAR},</if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.blog.pojo.Lmessage">
         update lmessage
         <set>
-                <if test="commenterId != null">
-                    commenter_id = #{commenterId,jdbcType=INTEGER},
-                </if>
-                <if test="leaveTime != null">
-                    leave_time = #{leaveTime,jdbcType=TIMESTAMP},
-                </if>
-                <if test="likeCount != null">
-                    like_count = #{likeCount,jdbcType=INTEGER},
-                </if>
+            <if test="commenterId != null">
+                commenter_id = #{commenterId,jdbcType=INTEGER},
+            </if>
+            <if test="leaveTime != null">
+                leave_time = #{leaveTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="likeCount != null">
+                like_count = #{likeCount,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
         </set>
-        where   lmessage_id = #{lmessageId,jdbcType=INTEGER} 
+        where lmessage_id = #{lmessageId,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.blog.pojo.Lmessage">
         update lmessage
         set 
             commenter_id =  #{commenterId,jdbcType=INTEGER},
             leave_time =  #{leaveTime,jdbcType=TIMESTAMP},
-            like_count =  #{likeCount,jdbcType=INTEGER}
-        where   lmessage_id = #{lmessageId,jdbcType=INTEGER} 
+            like_count =  #{likeCount,jdbcType=INTEGER},
+            content = #{content,jdbc=VARCHAR}
+        where lmessage_id = #{lmessageId,jdbcType=INTEGER}
     </update>
 </mapper>

@@ -17,5 +17,7 @@ public class Lmessage implements Serializable {
 
     private Integer likeCount;
 
+    private String content;
+
     private static final long serialVersionUID = 1L;
 }
