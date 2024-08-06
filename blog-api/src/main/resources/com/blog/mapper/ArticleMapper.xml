@@ -7,6 +7,7 @@
     <resultMap id="BaseResultMap" type="com.blog.pojo.Article">
             <id property="articleId" column="article_id" jdbcType="INTEGER"/>
             <result property="authorId" column="author_id" jdbcType="INTEGER"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
             <result property="content" column="content" jdbcType="VARCHAR"/>
             <result property="publishTime" column="publish_time" jdbcType="TIMESTAMP"/>
             <result property="readCount" column="read_count" jdbcType="INTEGER"/>
@@ -15,7 +16,7 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        article_id,author_id,content,
+        article_id,author_id,content,title,
         publish_time,read_count,like_count,
         comment_count
     </sql>
@@ -33,10 +34,10 @@
     </delete>
     <insert id="insert" keyColumn="article_id" keyProperty="articleId" parameterType="com.blog.pojo.Article" useGeneratedKeys="true">
         insert into article
-        ( article_id,author_id,content
+        ( article_id,author_id,title,content,
         ,publish_time,read_count,like_count
         ,comment_count)
-        values (#{articleId,jdbcType=INTEGER},#{authorId,jdbcType=INTEGER},#{content,jdbcType=VARCHAR}
+        values (#{articleId,jdbcType=INTEGER},#{authorId,jdbcType=INTEGER},#{title,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR}
         ,#{publishTime,jdbcType=TIMESTAMP},#{readCount,jdbcType=INTEGER},#{likeCount,jdbcType=INTEGER}
         ,#{commentCount,jdbcType=INTEGER})
     </insert>
@@ -45,6 +46,7 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
                 <if test="articleId != null">article_id,</if>
                 <if test="authorId != null">author_id,</if>
+                <if test="title != null">title,</if>
                 <if test="content != null">content,</if>
                 <if test="publishTime != null">publish_time,</if>
                 <if test="readCount != null">read_count,</if>
@@ -54,6 +56,7 @@
         <trim prefix="values (" suffix=")" suffixOverrides=",">
                 <if test="articleId != null">#{articleId,jdbcType=INTEGER},</if>
                 <if test="authorId != null">#{authorId,jdbcType=INTEGER},</if>
+                <if test="title != null">#{title,jdbcType=VARCHAR},</if>
                 <if test="content != null">#{content,jdbcType=VARCHAR},</if>
                 <if test="publishTime != null">#{publishTime,jdbcType=TIMESTAMP},</if>
                 <if test="readCount != null">#{readCount,jdbcType=INTEGER},</if>
@@ -66,6 +69,9 @@
         <set>
                 <if test="authorId != null">
                     author_id = #{authorId,jdbcType=INTEGER},
+                </if>
+                <if test="title != null">
+                    title = #{title,jdbcType=VARCHAR},
                 </if>
                 <if test="content != null">
                     content = #{content,jdbcType=VARCHAR},
@@ -89,6 +95,7 @@
         update article
         set 
             author_id =  #{authorId,jdbcType=INTEGER},
+            title = #{content,jdbcType=VARCHAR},
             content =  #{content,jdbcType=VARCHAR},
             publish_time =  #{publishTime,jdbcType=TIMESTAMP},
             read_count =  #{readCount,jdbcType=INTEGER},

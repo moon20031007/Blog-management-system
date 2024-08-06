@@ -1,6 +1,7 @@
 package com.blog.service.impl;
 
 import com.blog.mapper.TagMapper;
+import com.blog.pojo.Article;
 import com.blog.pojo.Tag;
 import com.blog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +28,10 @@ public class TagServiceImpl implements TagService {
             throw new NoSuchElementException("No such tag");
         }
         return tag;
+    }
+
+    @Override
+    public List<Article> fetchArticles(Integer id) {
+        return tagMapper.fetchArticle(Long.valueOf(id));
     }
 }

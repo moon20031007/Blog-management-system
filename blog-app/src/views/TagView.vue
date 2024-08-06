@@ -5,7 +5,7 @@
             <el-main>
                 <el-row class="grid-row">
                     <el-col v-for="Tag in Tags" :key="Tag.tagId" :span="6">
-                        <div @click="viewTag(Tag.tagId)" class="grid-item">{{ `${Tag.tagName}` }}</div>
+                        <div @click="viewTag(Tag.tagId)" class="grid-item">{{ `${Tag.tag.Name}` }}</div>
                     </el-col>
                 </el-row>
             </el-main>

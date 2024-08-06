@@ -1,5 +1,6 @@
 package com.blog.controller;
 
+import com.blog.pojo.Article;
 import com.blog.pojo.Tag;
 import com.blog.service.TagService;
 import com.blog.util.result.Result;
@@ -35,6 +36,18 @@ public class TagController {
         try {
             Tag tag = tagService.findById(id);
             return Result.success(tag);
+        } catch (NoSuchElementException e) {
+            return Result.error(ResultCode.RESULE_DATA_NONE);
+        } catch (Exception e) {
+            return Result.error(ResultCode.ERROR);
+        }
+    }
+
+    @GetMapping("/{id}/articles")
+    public Result getArticles(@PathVariable Integer id) {
+        try {
+            List<Article> articles = tagService.fetchArticles(id);
+            return Result.success(articles);
         } catch (NoSuchElementException e) {
             return Result.error(ResultCode.RESULE_DATA_NONE);
         } catch (Exception e) {

@@ -13,6 +13,8 @@ public class Article implements Serializable {
 
     private Integer authorId;
 
+    private String title;
+
     private String content;
 
     private Date publishTime;

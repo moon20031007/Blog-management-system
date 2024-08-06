@@ -1,5 +1,6 @@
 package com.blog.mapper;
 
+import com.blog.pojo.Article;
 import com.blog.pojo.Tag;
 
 import java.util.List;
@@ -25,5 +26,7 @@ public interface TagMapper {
     int updateByPrimaryKeySelective(Tag record);
 
     int updateByPrimaryKey(Tag record);
+
+    List<Article> fetchArticle(Long id);
 
 }
