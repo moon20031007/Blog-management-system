@@ -63,6 +63,16 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Integer getIDByUsername(String username) {
+        Account accountByUsername = getAccountByUsername(username);
+        if (accountByUsername == null) {
+            return null;
+        }
+        Integer accountId = accountByUsername.getAccountId();
+        return accountId;
+    }
+
+    @Override
     public Result delete(Account account) {
         Long accountId = Long.valueOf(account.getAccountId());
         if (accountMapper.deleteByPrimaryKey(accountId) != 1){

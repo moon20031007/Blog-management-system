@@ -61,7 +61,7 @@
                           })
                           .catch(error => {
                               console.error('留言提交失败:', error);
-                              this.$message.error('登录失败，请检查用户名和密码',);
+                              this.$message.error('登录失败，请检查登陆状态',);
                           });
                   } else {
                       return false;

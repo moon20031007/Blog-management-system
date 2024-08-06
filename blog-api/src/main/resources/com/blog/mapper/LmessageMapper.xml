@@ -23,6 +23,11 @@
         from lmessage
         where  lmessage_id = #{lmessageId,jdbcType=INTEGER} 
     </select>
+    <select id="list" resultType="com.blog.pojo.Lmessage">
+        select
+        <include refid="Base_Column_List"/>
+        from lmessage
+    </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from lmessage
@@ -34,7 +39,7 @@
         ( lmessage_id,commenter_id,leave_time
         ,like_count,content)
         values (#{lmessageId,jdbcType=INTEGER},#{commenterId,jdbcType=INTEGER},#{leaveTime,jdbcType=TIMESTAMP}
-        ,#{likeCount,jdbcType=INTEGER}),#{content,jdbcType=VARCHAR}
+        ,#{likeCount,jdbcType=INTEGER},#{content,jdbcType=VARCHAR})
     </insert>
 
     <insert id="insertSelective" keyColumn="lmessage_id" keyProperty="lmessageId" parameterType="com.blog.pojo.Lmessage" useGeneratedKeys="true">
@@ -78,7 +83,7 @@
             commenter_id =  #{commenterId,jdbcType=INTEGER},
             leave_time =  #{leaveTime,jdbcType=TIMESTAMP},
             like_count =  #{likeCount,jdbcType=INTEGER},
-            content = #{content,jdbc=VARCHAR}
+            content = #{content,jdbcType=VARCHAR}
         where lmessage_id = #{lmessageId,jdbcType=INTEGER}
     </update>
 </mapper>

@@ -1,6 +1,9 @@
 package com.blog.mapper;
 
 import com.blog.pojo.Lmessage;
+import com.blog.pojo.Tag;
+
+import java.util.List;
 
 /**
 * @author Yixiao
@@ -9,6 +12,7 @@ import com.blog.pojo.Lmessage;
 * @Entity com.blog.pojo.Lmessage
 */
 public interface LmessageMapper {
+    List<Lmessage> list();
 
     int deleteByPrimaryKey(Long id);
 
