@@ -1,7 +1,7 @@
 <template>
-    <div style="border: 1px solid #dcdfe6; padding: 20px; border-radius: 4px; width: 50%; margin: 5% auto 0;">
+    <div style="border: 1px solid #dcdfe6; padding: 20px; border-radius: 4px; width: 50%; margin: 2% auto 0">
         <el-form :model="accountForm" :rules="rules" ref="accountForm" label-width="100px">
-            <el-button type="primary"><router-link to="/">首页</router-link></el-button>
+            <div class="botton-container"><el-button plain ><router-link to="/">回到首页</router-link></el-button></div>
             <el-form-item label="用户名" prop="id">
                 <el-input v-model="accountForm.id"></el-input>
             </el-form-item>
@@ -39,9 +39,10 @@
             </el-form-item>
             <el-form-item>
                 <el-button type="primary" @click="submitForm('accountForm')">立即创建</el-button>
+                <div class="link-container"><router-link to="/login" class="small-font-link" >已经有账号？去登陆</router-link></div>
             </el-form-item>
-            <el-button type="primary"><router-link to="/login">登录</router-link></el-button>
         </el-form>
+        
     </div>
 </template>
 
@@ -139,4 +140,13 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+.botton-container {
+  text-align: left; /* 将链接对齐到右边 */
+  margin-bottom: 20px; /* 与表单项之间的间距 */
+}
+
+.link-container {
+  text-align: right; /* 将链接对齐到右边 */
+  margin-bottom: 20px; /* 与表单项之间的间距 */
+}</style>

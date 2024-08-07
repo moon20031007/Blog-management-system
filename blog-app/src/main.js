@@ -9,6 +9,7 @@ import MyAsideList from './components/Asidelist.vue'
 import MyLmessageList from './components/LmessageList.vue'
 import MyLmessageEditor from './components/LmessageEditor.vue'
 import MyLogList from './views/LogView.vue'
+import MyArticleWriteEditor from './components/ArticleWriteEditor.vue'
 
 
 Vue.config.productionTip = false
@@ -19,6 +20,7 @@ Vue.component('my-asi-list', MyAsideList)
 Vue.component('my-lme-list',MyLmessageList)
 Vue.component('my-lme-editor',MyLmessageEditor)
 Vue.component('my-log-list',MyLogList)
+Vue.component('my-art-wrt-editor',MyArticleWriteEditor)
 
 
 
