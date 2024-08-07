@@ -7,6 +7,7 @@ import com.blog.util.result.ResultCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -33,6 +34,26 @@ public class ArticleController {
         try {
             articleService.insert(article);
             return Result.success();
+        } catch (Exception e) {
+            return Result.error(ResultCode.ERROR);
+        }
+    }
+
+    @GetMapping("/hot")
+    public Result hot() {
+        try {
+            List<Article> hotArticles = articleService.hot();
+            return Result.success(hotArticles);
+        } catch (Exception e) {
+            return Result.error(ResultCode.ERROR);
+        }
+    }
+
+    @GetMapping("/latest")
+    public Result latest() {
+        try {
+            List<Article> latestArticles = articleService.latest();
+            return Result.success(latestArticles);
         } catch (Exception e) {
             return Result.error(ResultCode.ERROR);
         }

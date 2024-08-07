@@ -7,6 +7,7 @@ import com.blog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -33,5 +34,10 @@ public class TagServiceImpl implements TagService {
     @Override
     public List<Article> fetchArticles(Integer id) {
         return tagMapper.fetchArticle(Long.valueOf(id));
+    }
+
+    @Override
+    public List<Tag> hot() {
+        return tagMapper.hottags();
     }
 }

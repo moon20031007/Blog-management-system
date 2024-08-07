@@ -34,6 +34,13 @@
         where at.tag_id = #{tagId,jdbcType=INTEGER}
     </select>
 
+    <select id="hottags" resultType="com.blog.pojo.Tag">
+        select
+        <include refid="Base_Column_List"/>
+        from Tag
+        order by article_count desc
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from Tag
         where  tag_id = #{tagId,jdbcType=INTEGER} 

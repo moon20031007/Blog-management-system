@@ -4,15 +4,17 @@
             <section class="sidebar-section">
                 <h3>最热标签</h3>
                 <ul class="tags-list">
-                    <li v-for="tag in hotTags" :key="tag">{{ tag }}</li>
+                    <li v-for="tag in hotTags" :key="tag">
+                        <a :href="'/tag/' + tag.tagId">{{ tag.tagName }}</a>
+                    </li>
                 </ul>
             </section>
 
             <section class="sidebar-section">
                 <h3>最热文章</h3>
                 <ul class="articles-list">
-                    <li v-for="article in hotArticles" :key="article.id">
-                        <a @click.prevent="viewArticle(article.id)">{{ article.title }}</a>
+                    <li v-for="article in hotArticles" :key="article.articleId">
+                        <a :href="'/article/' + article.articleId">{{ article.title }}</a>
                     </li>
                 </ul>
             </section>
@@ -20,8 +22,8 @@
             <section class="sidebar-section">
                 <h3>最新文章</h3>
                 <ul class="articles-list">
-                    <li v-for="article in latestArticles" :key="article.id">
-                        <a @click.prevent="viewArticle(article.id)">{{ article.title }}</a>
+                    <li v-for="article in latestArticles" :key="article.articleId">
+                        <a :href="'/article/' + article.articleId">{{ article.title }}</a>
                     </li>
                 </ul>
             </section>
@@ -36,26 +38,19 @@ export default {
     name: 'MyAsideList',
     data() {
         return {
-            hotTags: ['Vue.js', 'JavaScript', 'Web Development', 'Frontend', 'CSS'],
-            hotArticles: [
-                { id: 1, title: 'Understanding Vue.js Directives' },
-                { id: 2, title: 'JavaScript ES6 Features' },
-                // 更多最热文章数据
-            ],
-            latestArticles: [
-                { id: 3, title: 'New Features in Vue 3' },
-                { id: 4, title: 'How to Use Vue Router' },
-                // 更多最新文章数据
-            ]
+            hotTags: [],
+            hotArticles: [],
+            latestArticles: []
         }
     },
     async created() {
         await this.fetchHotTags();
         await this.fetchHotArticles();
+        await this.fetchLatestArticles();
     },
     methods: {
         async fetchHotTags() {
-            axios.get('/tag/hot')
+            axios.get('http://localhost:7000/tag/hot')
                 .then(response => {
                         this.hotTags = response.data.data;
                     })
@@ -65,17 +60,24 @@ export default {
                 });
         },
         async fetchHotArticles() {
-            axios.get('/article/hot')
+            axios.get('http://localhost:7000/article/hot')
                 .then(response => {
-                        this.hotTags = response.data.data;
+                        this.hotArticles = response.data.data;
                     })
                 .catch(error => {
                     console.error('获取最热文章失败:', error);
                     this.$message.error('获取最热文章失败');
                 });
         },
-        viewArticle(id) {
-            this.$router.push({ name: 'ArticleDetail', params: { id } });
+        async fetchLatestArticles() {
+            axios.get('http://localhost:7000/article/latest')
+                .then(response => {
+                        this.latestArticles = response.data.data;
+                    })
+                .catch(error => {
+                    console.error('获取最新文章失败:', error);
+                    this.$message.error('获取最新文章失败');
+                });
         }
     }
 }

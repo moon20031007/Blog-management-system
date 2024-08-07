@@ -2,6 +2,8 @@ package com.blog.mapper;
 
 import com.blog.pojo.Article;
 
+import java.util.List;
+
 /**
 * @author Yixiao
 * @description 针对表【article】的数据库操作Mapper
@@ -22,4 +24,7 @@ public interface ArticleMapper {
 
     int updateByPrimaryKey(Article record);
 
+    List<Article> hotarticles();
+
+    List<Article> latestarticles();
 }

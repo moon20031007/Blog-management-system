@@ -28,10 +28,25 @@
         where  article_id = #{articleId,jdbcType=INTEGER} 
     </select>
 
+    <select id="hotarticles" resultType="com.blog.pojo.Article">
+        select
+        article_id, title
+        from article
+        order by read_count desc
+    </select>
+
+    <select id="latestarticles" resultType="com.blog.pojo.Article">
+        select
+        article_id, title
+        from article
+        order by publish_time desc
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from article
         where  article_id = #{articleId,jdbcType=INTEGER} 
     </delete>
+
     <insert id="insert" keyColumn="article_id" keyProperty="articleId" parameterType="com.blog.pojo.Article" useGeneratedKeys="true">
         insert into article
         ( article_id,author_id,title,content,
@@ -41,6 +56,7 @@
         ,#{publishTime,jdbcType=TIMESTAMP},#{readCount,jdbcType=INTEGER},#{likeCount,jdbcType=INTEGER}
         ,#{commentCount,jdbcType=INTEGER})
     </insert>
+
     <insert id="insertSelective" keyColumn="article_id" keyProperty="articleId" parameterType="com.blog.pojo.Article" useGeneratedKeys="true">
         insert into article
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -64,6 +80,7 @@
                 <if test="commentCount != null">#{commentCount,jdbcType=INTEGER},</if>
         </trim>
     </insert>
+
     <update id="updateByPrimaryKeySelective" parameterType="com.blog.pojo.Article">
         update article
         <set>
@@ -91,6 +108,7 @@
         </set>
         where   article_id = #{articleId,jdbcType=INTEGER} 
     </update>
+
     <update id="updateByPrimaryKey" parameterType="com.blog.pojo.Article">
         update article
         set 

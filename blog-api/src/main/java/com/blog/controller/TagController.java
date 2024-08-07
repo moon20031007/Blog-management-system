@@ -6,10 +6,7 @@ import com.blog.service.TagService;
 import com.blog.util.result.Result;
 import com.blog.util.result.ResultCode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -53,5 +50,11 @@ public class TagController {
         } catch (Exception e) {
             return Result.error(ResultCode.ERROR);
         }
+    }
+
+    @GetMapping("/hot")
+    public Result hot() {
+        List<Tag> hotTags = tagService.hot();
+        return Result.success(hotTags);
     }
 }

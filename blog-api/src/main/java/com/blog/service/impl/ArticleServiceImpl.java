@@ -2,10 +2,13 @@ package com.blog.service.impl;
 
 import com.blog.mapper.ArticleMapper;
 import com.blog.pojo.Article;
+import com.blog.pojo.Tag;
 import com.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -26,5 +29,15 @@ public class ArticleServiceImpl implements ArticleService {
             throw new NoSuchElementException();
         }
         return article;
+    }
+
+    @Override
+    public List<Article> hot() {
+        return articleMapper.hotarticles();
+    }
+
+    @Override
+    public List<Article> latest() {
+        return articleMapper.latestarticles();
     }
 }
