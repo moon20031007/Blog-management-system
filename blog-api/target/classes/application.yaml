@@ -1,0 +1,23 @@
+# server配置
+server:
+  port: 7000
+  servlet:
+    context-path: /
+
+# 连接池配置
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://localhost:3306/blog?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=true #取决于数据库
+    username: root
+    password: 123456 #改成自己的密码
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# mybatis-plus的配置
+mybatis-plus:
+  type-aliases-package: com.atguigu.pojo
+  global-config:
+    db-config:
+      logic-delete-field: isDeleted  #全局逻辑删除
+      id-type: auto #主键策略自增长
+      #table-prefix: news_  设置表的前缀

@@ -30,6 +30,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: 'MyAsideList',
     data() {
@@ -47,9 +49,32 @@ export default {
             ]
         }
     },
+    async created() {
+        await this.fetchHotTags();
+        await this.fetchHotArticles();
+    },
     methods: {
+        async fetchHotTags() {
+            axios.get('/tag/hot')
+                .then(response => {
+                        this.hotTags = response.data.data;
+                    })
+                .catch(error => {
+                    console.error('获取最热标签失败:', error);
+                    this.$message.error('获取最热标签失败');
+                });
+        },
+        async fetchHotArticles() {
+            axios.get('/article/hot')
+                .then(response => {
+                        this.hotTags = response.data.data;
+                    })
+                .catch(error => {
+                    console.error('获取最热文章失败:', error);
+                    this.$message.error('获取最热文章失败');
+                });
+        },
         viewArticle(id) {
-            // Navigate to the article detail page
             this.$router.push({ name: 'ArticleDetail', params: { id } });
         }
     }
