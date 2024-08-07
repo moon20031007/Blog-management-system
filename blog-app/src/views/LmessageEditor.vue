@@ -1,5 +1,5 @@
 <template>
-    <div class="article-card">
+    <div class="Lmessage-card">
       <el-form :model="messageForm" status-icon :rules="rules" ref="messageForm" class="demo-ruleForm">
         <el-form-item prop="textarea" class="input">
             <el-input
@@ -83,6 +83,8 @@
       padding: 1rem;
       border-radius: 0.5rem;
       box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      margin-left : 3rem;
+      margin-right: 3rem;
   }
   
   .input {

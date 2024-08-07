@@ -6,16 +6,19 @@ import router from './router'
 import MyNavigation from './components/Navigation.vue'
 import MyArticleList from './components/Articlelist.vue'
 import MyAsideList from './components/Asidelist.vue'
-import LmessageList from './views/LmessageList.vue';
-import LmessageEditor from './views/LmessageEditor.vue';
+import MyLmessageList from './views/LmessageList.vue'
+import MyLmessageEditor from './views/LmessageEditor.vue'
+import MyLogList from './views/LogView.vue'
+
 
 Vue.config.productionTip = false
 Vue.use(ElementUI);
 Vue.component('my-nav', MyNavigation);
 Vue.component('my-art-list', MyArticleList);
 Vue.component('my-asi-list', MyAsideList)
-Vue.component('my-lme-list',LmessageList)
-Vue.component('my-lme-editor',LmessageEditor)
+Vue.component('my-lme-list',MyLmessageList)
+Vue.component('my-lme-editor',MyLmessageEditor)
+Vue.component('my-log-list',MyLogList)
 
 
 

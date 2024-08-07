@@ -36,10 +36,7 @@ export default {
         }
     },
     methods: {
-        viewArticle(id) {
-            // Navigate to the article detail page
-            this.$router.push({ name: 'ArticleDetail', params: { id } });
-        }
+        
     }
 }
 </script>
@@ -49,7 +46,7 @@ export default {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    margin-top:3rem;
+    margin:3rem;
     border: 1px solid #ddd;
     padding: 1rem;
     border-radius: 0.5rem;
