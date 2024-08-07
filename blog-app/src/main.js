@@ -6,8 +6,8 @@ import router from './router'
 import MyNavigation from './components/Navigation.vue'
 import MyArticleList from './components/Articlelist.vue'
 import MyAsideList from './components/Asidelist.vue'
-import MyLmessageList from './views/LmessageList.vue'
-import MyLmessageEditor from './views/LmessageEditor.vue'
+import MyLmessageList from './components/LmessageList.vue'
+import MyLmessageEditor from './components/LmessageEditor.vue'
 import MyLogList from './views/LogView.vue'
 
 

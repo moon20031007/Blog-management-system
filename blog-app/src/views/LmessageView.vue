@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import LmessageEditor from './LmessageEditor.vue'
-import LmessageList from './LmessageList.vue'
+import LmessageEditor from '../components/LmessageEditor.vue'
+import LmessageList from '../components/LmessageList.vue'
 export default {
   components: { LmessageEditor, LmessageList },
     
