@@ -1,7 +1,10 @@
 package com.blog.controller;
 
+import com.blog.DTO.ArticleRequestDTO;
 import com.blog.pojo.Article;
+import com.blog.pojo.ArticleTags;
 import com.blog.service.ArticleService;
+import com.blog.service.ArticleTagsService;
 import com.blog.util.result.Result;
 import com.blog.util.result.ResultCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +13,13 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/article")
 public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
+    @Autowired
+    private ArticleTagsService articleTagsService;
 
     @GetMapping("/detail/{id}")
     public Result get(@PathVariable Integer id) {
@@ -30,9 +34,13 @@ public class ArticleController {
     }
 
     @PostMapping("/add")
-    public Result add(@RequestBody Article article) {
+    public Result add(@RequestBody ArticleRequestDTO articleRequestDTO)  throws Exception{
+        Article article = articleRequestDTO.getArticle();
+        List<Integer> tagIDs = articleRequestDTO.getTagIDs();
         try {
             articleService.insert(article);
+            Integer articleId = article.getArticleId();
+            articleTagsService.saveArticleTags(articleId,tagIDs);
             return Result.success();
         } catch (Exception e) {
             return Result.error(ResultCode.ERROR);
