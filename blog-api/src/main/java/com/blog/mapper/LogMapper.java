@@ -2,6 +2,8 @@ package com.blog.mapper;
 
 import com.blog.pojo.Log;
 
+import java.util.List;
+
 /**
 * @author Yixiao
 * @description 针对表【log】的数据库操作Mapper
@@ -22,4 +24,5 @@ public interface LogMapper {
 
     int updateByPrimaryKey(Log record);
 
+    List<Log> all();
 }

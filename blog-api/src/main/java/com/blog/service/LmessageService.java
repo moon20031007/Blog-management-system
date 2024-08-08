@@ -16,6 +16,8 @@ import java.util.List;
  * @Version: v1.0
  */
 public interface LmessageService {
+
     Result insert(Lmessage lmessage, Subject currentUser);
+
     List<Lmessage> getAll();
 }
