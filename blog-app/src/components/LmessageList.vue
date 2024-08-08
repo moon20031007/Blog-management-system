@@ -31,7 +31,7 @@ export default {
     },
     methods: {
         async fetchLmessages() {
-            axios.get('/lmessage/list')
+            axios.get('http://localhost:7000/lmessage/list')
                 .then(response => {
                     this.lmessages = response.data.data;
                 })

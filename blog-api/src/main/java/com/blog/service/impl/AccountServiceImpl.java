@@ -81,4 +81,9 @@ public class AccountServiceImpl implements AccountService {
         }
         return Result.success();
     }
+
+    @Override
+    public Account getAccountByID(Integer id) {
+        return accountMapper.selectByPrimaryKey(Long.valueOf(id));
+    }
 }

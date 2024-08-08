@@ -53,7 +53,7 @@ const routes = [
         component: TagSearchPage
     },
     {
-        path: '/account',
+        path: '/account/:id',
         name: 'PersonalCenter',
         component: PersonalCenter
     }

@@ -27,7 +27,7 @@ export default {
     },
     methods: {
         async fetchTags() {
-            axios.get('/tag/list')
+            axios.get('http://localhost:7000/tag/list')
                 .then(response => {
                     this.Tags = response.data.data;
                 })

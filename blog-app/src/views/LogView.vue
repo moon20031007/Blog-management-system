@@ -33,7 +33,7 @@ export default {
     },
     methods: {
         async fetchLogs() {
-            axios.get('/log/all')
+            axios.get('http://localhost:7000/log/all')
                 .then(response => {
                     this.logs = response.data.data;
                 })

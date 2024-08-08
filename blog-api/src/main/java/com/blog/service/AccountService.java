@@ -8,8 +8,6 @@ import org.yaml.snakeyaml.events.Event;
 
 public interface AccountService {
 
-//    boolean login(Account account);
-
     void insert(Account account);
 
     Account getAccountByUsername(String username);
@@ -19,4 +17,6 @@ public interface AccountService {
     Account defaultAccount();
 
     Result delete(Account account);
+
+    Account getAccountByID(Integer id);
 }

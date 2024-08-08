@@ -44,7 +44,7 @@ export default {
                 const form = { commenterId: 1, context: this.messageForm.textarea };
                 console.log(form);
                 if (valid) {
-                    axios.post('/lmessage/add', form)
+                    axios.post('http://localhost:7000/lmessage/add', form)
                         .then(response => {
                             console.log(response.data);
                             this.$message({

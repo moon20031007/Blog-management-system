@@ -22,6 +22,7 @@ import java.util.List;
  *
 */
 @RestController
+@CrossOrigin
 @RequestMapping("/lmessage")
 public class LmessageController {
 

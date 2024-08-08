@@ -23,7 +23,7 @@ export default {
     },
     methods: {
         async fetchTag() {
-            axios.get(`/tag/detail/${this.$route.params.id}`)
+            axios.get(`http://localhost:7000/tag/detail/${this.$route.params.id}`)
                 .then(response => {
                     this.Tag = response.data.data;
                 })
@@ -33,7 +33,7 @@ export default {
                 });
         },
         async fetchArticles() {
-            axios.get(`/tag/${this.$route.params.id}/articles`)
+            axios.get(`http://localhost:7000/tag/${this.$route.params.id}/articles`)
                 .then(response => {
                     this.Articles = response.data.data;
                 })

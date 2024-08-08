@@ -5,14 +5,13 @@ import com.blog.pojo.Account;
 import com.blog.service.AccountService;
 import com.blog.util.result.Result;
 import com.blog.util.result.ResultCode;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@CrossOrigin
 @RequestMapping("/user")
 public class AccountController {
 
@@ -32,6 +31,7 @@ public class AccountController {
             return Result.error(ResultCode.ERROR);
         }
     }
+
     @GetMapping("/delete/{username}")
     public Result delete(@PathVariable("username") String username) {
 
@@ -43,6 +43,7 @@ public class AccountController {
         System.out.println("删除用户: " + username);
         return accountService.delete(accountByUsername);
     }
+
     @GetMapping("/get/{username}")
     public Result getAccount(@PathVariable("username") String username){
 
@@ -52,5 +53,15 @@ public class AccountController {
             return Result.error(ResultCode.USER_NOT_EXIST);
         }
         return Result.success();
+    }
+
+    @GetMapping("/detail/{id}")
+    public Result detail(@PathVariable("id") Integer id) {
+        try {
+            Account account = accountService.getAccountByID(id);
+            return Result.success(account);
+        } catch (Exception e) {
+            return Result.error(ResultCode.ERROR);
+        }
     }
 }

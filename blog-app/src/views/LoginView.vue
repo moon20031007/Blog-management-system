@@ -59,7 +59,7 @@ export default {
             this.$refs[formName].validate((valid) => {
                 const form = { username: this.ruleForm.id, password: this.ruleForm.pass };
                 if (valid) {
-                    axios.post('/user/login', form)
+                    axios.post('http://localhost:7000/user/login', form)
                         .then(response => {
                             console.log(response.data);
                             this.$message({

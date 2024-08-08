@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @Create: 2024.8.1 - 14:14
  * @Version: v1.0
  */
-
+@CrossOrigin
 @RestController
 public class LoginController {
 
