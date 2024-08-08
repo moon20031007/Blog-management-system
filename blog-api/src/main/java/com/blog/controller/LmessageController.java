@@ -30,11 +30,12 @@ public class LmessageController {
 
     @PostMapping("/add")
     public Result add(@RequestBody Lmessage lmessage){
-        Subject currentUser = SecurityUtils.getSubject();
-        if (!currentUser.isAuthenticated()) {
-            return Result.error(ResultCode.USER_NOT_LOGGED_IN);
+        try{
+            lmessageService.insert(lmessage);
+            return Result.success();
+        }catch (Exception e){
+            return Result.error(ResultCode.ERROR);
         }
-        return lmessageService.insert(lmessage,currentUser);
     }
 
     @GetMapping("/list")

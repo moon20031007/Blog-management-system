@@ -2,24 +2,26 @@ package com.blog.service.impl;
 
 import com.blog.mapper.ArticleMapper;
 import com.blog.pojo.Article;
-import com.blog.pojo.Tag;
+import com.blog.service.AccountService;
 import com.blog.service.ArticleService;
+import com.blog.util.currentUser.GetCurrentID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
-
     @Autowired
     private ArticleMapper articleMapper;
-
+    @Autowired
+    AccountService accountService;
     @Override
-    public void insert(Article article) {
-        articleMapper.insert(article);
+    public void insert(Article article) throws Exception {
+        Integer authenticatedUserId = GetCurrentID.getAuthenticatedUserId(accountService);
+        article.setAuthorId(authenticatedUserId);
+        articleMapper.insertSelective(article);
     }
 
     @Override

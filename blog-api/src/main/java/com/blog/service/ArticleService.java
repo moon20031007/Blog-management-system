@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ArticleService {
 
-    void insert(Article article);
+    void insert(Article article) throws Exception;
 
     Article findById(Integer id);
 
