@@ -8,6 +8,7 @@ import WriteView from '../views/WriteView.vue'
 import LoginView from '../views/LoginView.vue'
 import SignupView from '../views/SignupView.vue'
 import TagSearchPage from '../views/TagSearchPage.vue'
+import PersonalCenter from '../views/PersonalCenter.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -50,6 +51,11 @@ const routes = [
         path: '/tag/:id',
         name: 'Tag_id',
         component: TagSearchPage
+    },
+    {
+        path: '/account',
+        name: 'PersonalCenter',
+        component: PersonalCenter
     }
 ]
 
