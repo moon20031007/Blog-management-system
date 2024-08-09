@@ -9,6 +9,7 @@ import LoginView from '../views/LoginView.vue'
 import SignupView from '../views/SignupView.vue'
 import TagSearchPage from '../views/TagSearchPage.vue'
 import PersonalCenter from '../views/PersonalCenter.vue'
+import ArticleView from '../views/ArticleView.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -56,6 +57,11 @@ const routes = [
         path: '/account/:id',
         name: 'PersonalCenter',
         component: PersonalCenter
+    },
+    {
+        path: '/article/:id',
+        name: 'article',
+        component: ArticleView
     }
 ]
 

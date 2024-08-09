@@ -23,6 +23,12 @@ public class Reply implements Serializable, Likable {
 
     private Integer likeCount;
 
+    private Boolean replyType;
+
+    private Integer toId;
+
+    private Integer toReplyId;
+
     private static final long serialVersionUID = 1L;
 
     @Override

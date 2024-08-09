@@ -5,17 +5,20 @@
 <mapper namespace="com.blog.mapper.ReplyMapper">
 
     <resultMap id="BaseResultMap" type="com.blog.pojo.Reply">
-            <id property="replyId" column="reply_id" jdbcType="INTEGER"/>
-            <result property="replierId" column="replier_id" jdbcType="INTEGER"/>
-            <result property="commentId" column="comment_id" jdbcType="INTEGER"/>
-            <result property="content" column="content" jdbcType="VARCHAR"/>
-            <result property="replyTime" column="reply_time" jdbcType="TIMESTAMP"/>
-            <result property="likeCount" column="like_count" jdbcType="INTEGER"/>
+        <id property="replyId" column="reply_id" jdbcType="INTEGER"/>
+        <result property="replierId" column="replier_id" jdbcType="INTEGER"/>
+        <result property="commentId" column="comment_id" jdbcType="INTEGER"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="replyTime" column="reply_time" jdbcType="TIMESTAMP"/>
+        <result property="likeCount" column="like_count" jdbcType="INTEGER"/>
+        <result property="replyType" column="reply_type" jdbcType="BOOLEAN"/>
+        <result property="toId" column="to_id" jdbcType="INTEGER"/>
+        <result property="toReplyId" column="to_reply_id" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         reply_id,replier_id,comment_id,
-        content,reply_time,like_count
+        content,reply_time,like_count,reply_type,to_id,to_reply_id
     </sql>
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
@@ -23,6 +26,14 @@
         <include refid="Base_Column_List" />
         from reply
         where  reply_id = #{replyId,jdbcType=INTEGER} 
+    </select>
+
+    <select id="selectByCommentId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from reply
+        where comment_id = #{commentId,jdbcType=INTEGER}
+        order by reply_time asc
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
