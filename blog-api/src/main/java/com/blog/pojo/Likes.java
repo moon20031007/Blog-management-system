@@ -1,6 +1,8 @@
 package com.blog.pojo;
 
 import java.io.Serializable;
+
+import com.blog.util.Enums.LikableEnum;
 import lombok.Data;
 
 /**
@@ -14,7 +16,7 @@ public class Likes implements Serializable {
 
     private Integer likeableId;
 
-    private Object likeableType;
+    private LikableEnum likeableType;
 
     private static final long serialVersionUID = 1L;
 }

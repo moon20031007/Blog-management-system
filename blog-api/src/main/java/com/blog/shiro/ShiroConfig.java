@@ -62,7 +62,7 @@ public class ShiroConfig {
         例子：filterChainDefinitionMap.put("/addUser", "authc");
         现在是所有都无限制
         */
-        filterChainDefinitionMap.put("user/delete", "authc");
+        filterChainDefinitionMap.put("article/add", "authc");
         filterChainDefinitionMap.put("/**", "anon");
 
         // 设置登录 URL，当用户未认证时会跳转到login页面

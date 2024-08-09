@@ -31,9 +31,6 @@ public class UserRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         String username = (String) authenticationToken.getPrincipal();
 
-        //第一次运行时，用于在数据库注册一个account
-        loginController.register(accountService.defaultAccount());
-
         Account account = accountService.getAccountByUsername(username);
         if (account == null) {
            throw new UnknownAccountException();//没找到帐号
