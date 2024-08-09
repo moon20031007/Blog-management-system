@@ -3,12 +3,12 @@
         <article v-for="article in articles" :key="article.id" class="article-card">
             <header>
                 <h2 @click="viewArticle(article.id)" class="clickable-title">{{ article.title }}</h2>
-                <p class="meta">By {{ article.author }} on {{ article.date }}</p>
+                <p class="meta">By {{ article.authorId }} on {{ article.publishTime }}</p>
             </header>
             <section>
-                <span><i class="el-icon-view">{{ article.read_count }}</i></span>
-                <span><i class="el-icon-chat-dot-round">{{ article.comment_count }}</i></span>
-                <span><i class="el-icon-star-off">{{ article.like_count }}</i></span>
+                <span><i class="el-icon-view">{{ article.readCount }}</i></span>
+                <span><i class="el-icon-chat-dot-round">{{ article.commentCount }}</i></span>
+                <span><i class="el-icon-star-off">{{ article.likeCount }}</i></span>
             </section>
         </article>
     </div>

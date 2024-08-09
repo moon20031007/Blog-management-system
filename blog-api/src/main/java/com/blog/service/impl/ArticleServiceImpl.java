@@ -17,6 +17,7 @@ public class ArticleServiceImpl implements ArticleService {
     private ArticleMapper articleMapper;
     @Autowired
     AccountService accountService;
+
     @Override
     public void insert(Article article) throws Exception {
         Integer authenticatedUserId = GetCurrentID.getAuthenticatedUserId(accountService);

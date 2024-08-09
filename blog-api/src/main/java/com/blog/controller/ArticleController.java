@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/article")
 public class ArticleController {
 
@@ -34,7 +35,7 @@ public class ArticleController {
     }
 
     @PostMapping("/add")
-    public Result add(@RequestBody ArticleRequestDTO articleRequestDTO)  throws Exception{
+    public Result add(@RequestBody ArticleRequestDTO articleRequestDTO) throws Exception{
         Article article = articleRequestDTO.getArticle();
         List<Integer> tagIDs = articleRequestDTO.getTagIDs();
         try {

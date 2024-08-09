@@ -17,7 +17,7 @@
 
             <el-form-item class="form-checkbox" prop="tag">
                 <el-checkbox-group v-model="messageForm.tag" :min="1">
-                    <el-checkbox v-for="city in cities" :label="city" :key="city">{{ city }}</el-checkbox>
+                    <el-checkbox v-for="city in cities" :label="city" :key="city">{{ city.tagName }}</el-checkbox>
                 </el-checkbox-group>
             </el-form-item>
 
@@ -31,8 +31,6 @@
 
 <script>
 import axios from 'axios';
-
-const cityOptions = ['java', 'scala', 'c++', 'anson'];
 
 export default {
     name: "MyArticleWriteEditor",
@@ -68,25 +66,44 @@ export default {
                     { validator: validateArea, trigger: 'blur' }
                 ]
             },
-            cities: cityOptions
+            cities: []
         };
     },
+    async created() {
+        await this.fetchCities();
+    },
     methods: {
+        async fetchCities() {
+            axios.get('http://localhost:7000/tag/list')
+                .then(response => {
+                    this.cities = response.data.data;
+                })
+                .catch(error => {
+                    console.error('获取标签失败:', error);
+                    this.$message.error('获取标签失败');
+                });
+        },
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
-                const form = { Title: this.messageForm.title, Text: this.messageForm.textarea, Tag: this.messageForm.tag };
+                const form = {
+                    article: {
+                        title: this.messageForm.title,
+                        content: this.messageForm.textarea
+                    },
+                    tagIDs: this.messageForm.tag.map(tag => tag.tagId)
+                };
+                console.log(form);
                 if (valid) {
-                    console.log('提交的留言内容:', this.messageForm.textarea);
                     axios.post('http://localhost:7000/article/add', form)
                         .then(response => {
                             console.log(response.data);
                             this.$message({
-                                message: '留言提交成功！',
+                                message: '文章提交成功！',
                                 type: 'success'
                             });
                         })
                         .catch(error => {
-                            console.error('留言提交失败:', error);
+                            console.error('文章提交失败:', error);
                             this.$message.error('提交失败，请检查登陆状态');
                         });
                 } else {

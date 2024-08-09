@@ -8,5 +8,5 @@ import java.util.List;
 @Data
 public class ArticleRequestDTO {
     private Article article;
-    private List<Integer > tagIDs;
+    private List<Integer> tagIDs;
 }
