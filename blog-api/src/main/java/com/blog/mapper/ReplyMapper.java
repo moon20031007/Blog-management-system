@@ -2,6 +2,8 @@ package com.blog.mapper;
 
 import com.blog.pojo.Reply;
 
+import java.util.List;
+
 /**
 * @author Yixiao
 * @description 针对表【reply】的数据库操作Mapper
@@ -21,5 +23,7 @@ public interface ReplyMapper {
     int updateByPrimaryKeySelective(Reply record);
 
     int updateByPrimaryKey(Reply record);
+
+    List<Reply> selectByCommentId(Long id);
 
 }
