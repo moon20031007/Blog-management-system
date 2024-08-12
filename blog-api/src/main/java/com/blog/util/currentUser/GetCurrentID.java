@@ -5,6 +5,8 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
 
+import java.util.NoSuchElementException;
+
 /**
  * ClassName: getCurrentuserID
  * Package:
@@ -23,7 +25,7 @@ public class GetCurrentID {
         String username = (String) currentUser.getPrincipal();
         Integer id = accountService.getIDByUsername(username);
         if (id == null) {
-            throw new RuntimeException("user not found");
+            throw new NoSuchElementException("user not found");
         }
         return id;
     }

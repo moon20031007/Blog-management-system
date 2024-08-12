@@ -1,6 +1,9 @@
 package com.blog.mapper;
 
 import com.blog.pojo.Comment;
+import com.blog.pojo.Reply;
+
+import java.util.List;
 
 /**
 * @author Yixiao
@@ -21,5 +24,7 @@ public interface CommentMapper {
     int updateByPrimaryKeySelective(Comment record);
 
     int updateByPrimaryKey(Comment record);
+
+    List<Comment> selectByArticleId(Long id);
 
 }

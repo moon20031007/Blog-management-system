@@ -7,6 +7,9 @@ import com.blog.util.Enums.LikableEnum;
 import com.blog.util.currentUser.GetCurrentID;
 import com.blog.util.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * ClassName: LikeController
