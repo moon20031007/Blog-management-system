@@ -2,7 +2,6 @@ package com.blog.controller;
 
 import com.blog.DTO.ArticleRequestDTO;
 import com.blog.pojo.Article;
-import com.blog.pojo.ArticleTags;
 import com.blog.service.ArticleService;
 import com.blog.service.ArticleTagsService;
 import com.blog.util.result.Result;
@@ -25,7 +24,7 @@ public class ArticleController {
     @GetMapping("/detail/{id}")
     public Result get(@PathVariable Integer id) {
         try {
-            Article article =  articleService.findById(id);
+            Article article =  articleService.findByIdAndAddReads(id);
             return Result.success(article);
         } catch (NoSuchElementException e) {
             return Result.error(ResultCode.RESULE_DATA_NONE);

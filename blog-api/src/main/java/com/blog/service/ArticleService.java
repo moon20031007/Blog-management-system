@@ -8,7 +8,7 @@ public interface ArticleService {
 
     void insert(Article article) throws Exception;
 
-    Article findById(Integer id);
+    Article findByIdAndAddReads(Integer id);
 
     List<Article> hot();
 

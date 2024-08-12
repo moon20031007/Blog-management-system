@@ -3,8 +3,6 @@ package com.blog.service.impl;
 import com.blog.mapper.CommentMapper;
 import com.blog.mapper.LikesMapper;
 import com.blog.mapper.ReplyMapper;
-import com.blog.pojo.Article;
-import com.blog.pojo.Comment;
 import com.blog.pojo.Likes;
 import com.blog.service.AccountService;
 import com.blog.service.ArticleService;
@@ -52,7 +50,7 @@ public class LikesServiceImpl implements LikesService {
 
             switch (likeableType) {
                 case ARTICLE:
-                    likable = articleService.findById(likeableId);
+                    likable = articleService.findByIdAndAddReads(likeableId);
                     break;
                 case COMMENT:
                     likable = commentMapper.selectByPrimaryKey(Long.valueOf(likeableId));

@@ -26,11 +26,14 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Article findById(Integer id) {
+    public Article findByIdAndAddReads(Integer id) {
         Article article = articleMapper.selectByPrimaryKey(Long.valueOf(id));
         if (article == null) {
             throw new NoSuchElementException();
         }
+        Integer currentReadCount = article.getReadCount();
+        article.setReadCount(++currentReadCount);
+        articleMapper.updateByPrimaryKeySelective(article);
         return article;
     }
 
