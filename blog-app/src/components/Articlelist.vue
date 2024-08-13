@@ -2,8 +2,8 @@
     <div class="article-list">
         <article v-for="article in articles" :key="article.id" class="article-card">
             <header>
-                <h2 @click="viewArticle(article.id)" class="clickable-title">{{ article.title }}</h2>
-                <p class="meta">By {{ article.authorId }} on {{ article.publishTime }}</p>
+                <h2 @click="viewArticle(article.articleId)" class="clickable-title">{{ article.title }}</h2>
+                <p class="meta">By {{ article.authorId }} on {{ $formatTime(article.publishTime) }}</p>
             </header>
             <section>
                 <span><i class="el-icon-view">{{ article.readCount }}</i></span>
@@ -25,7 +25,7 @@ export default {
     },
     methods: {
         viewArticle(id) {
-            this.$router.push({ path: '/article', params: { id } });
+            this.$router.push({ name: 'article', params: { id } });
         }
     }
 }

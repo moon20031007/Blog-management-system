@@ -1,11 +1,11 @@
 <template>
     <div style="border: 1px solid #dcdfe6; padding: 30px; border-radius: 4px; width: 30%; margin: 10% auto 0;">
-        <div class="botton-container"><el-button plain ><router-link to="/">回到首页</router-link></el-button></div>
+        <div class="botton-container"><el-button plain><router-link to="/">回到首页</router-link></el-button></div>
         <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-            
+
             <div class="login-container">
                 <el-form-item label="用户名" prop="id">
-                <el-input v-model.number="ruleForm.id"></el-input>
+                    <el-input v-model.number="ruleForm.id"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="pass">
                     <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
@@ -14,9 +14,10 @@
             <el-form-item>
                 <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
                 <el-button @click="resetForm('ruleForm')">重置</el-button>
-                <div class="link-container"><router-link to="/signup" class="small-font-link" >还没有账号？去注册</router-link></div>
+                <div class="link-container"><router-link to="/signup" class="small-font-link">还没有账号？去注册</router-link>
+                </div>
             </el-form-item>
-        </el-form> 
+        </el-form>
     </div>
 </template>
 
@@ -85,19 +86,21 @@ export default {
 </script>
 
 <style>
-.login-container{
+.login-container {
     position: relative;
 }
+
 .small-font-link {
     float: right;
-    font-size: 15px; 
+    font-size: 15px;
 }
+
 .botton-container {
-  text-align: left; 
-  margin-bottom: 20px; 
+    text-align: left;
+    margin-bottom: 20px;
 }
 
 .link-container {
-  text-align: right; 
+    text-align: right;
 }
 </style>

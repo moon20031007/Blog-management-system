@@ -22,7 +22,11 @@ Vue.component('my-lme-editor',MyLmessageEditor)
 Vue.component('my-log-list',MyLogList)
 Vue.component('my-art-wrt-editor',MyArticleWriteEditor)
 
-
+Vue.prototype.$formatTime = function (time) {
+    const date = new Date(time);
+    const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+    return date.toLocaleString(undefined, options);
+};
 
 new Vue({
     router,

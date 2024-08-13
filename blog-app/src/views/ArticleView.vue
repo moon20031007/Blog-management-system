@@ -8,16 +8,16 @@
                     <h2>{{ article.title }}</h2>
                     <el-card class="custom-card">
                         <div class="card-content">
-                            <i class="el-icon-user-solid"></i>{{ article.author }}
-                            <i class="el-icon-upload"></i>{{ article.publishTime }}
+                            <i class="el-icon-user-solid"></i>{{ article.authorId }}
+                            <i class="el-icon-upload"></i>{{ $formatTime(article.publishTime) }}
                             <i class="el-icon-view"></i>{{ article.readCount }}
                             <i class="el-icon-star-off"></i>{{ article.likeCount }}
                             <i class="el-icon-chat-line-round"></i>{{ article.commentCount }}
                         </div>
                         <div>
                             文章标签:
-                            <div v-for="tag in tags" :key="tag" class="tag">
-                                <el-tag>{{ tag.tagName }}</el-tag>
+                            <div v-for="tag in tags" :key="tag.tagId" class="tag">
+                                <el-link :href="`/tag/${tag.tagId}`"><el-tag>{{ tag.tagName }}</el-tag></el-link>
                             </div>
                         </div>
                     </el-card>
@@ -33,7 +33,7 @@
                         <i class="el-icon-user-solid user">{{ comment.commenterId }}</i><br>
                         {{ comment.content }}<br>
                         <small>
-                            <i class="el-icon-time"></i>{{ comment.commentTime }}
+                            <i class="el-icon-time"></i>{{ $formatTime(comment.commentTime) }}
                             <i class="el-icon-star-off"></i>{{ comment.likeCount }}
                         </small>
                         <el-button type="text" @click="showReplyView(comment.commentId, 0, 0)"><i class="el-icon-chat-line-square">回复</i></el-button>
@@ -45,7 +45,7 @@
                                         <span class="user">@{{ reply.toId }}</span>
                                     </template>
                                     {{ reply.content }}<br>
-                                    <i class="el-icon-time"></i>{{ reply.replyTime }}
+                                    <i class="el-icon-time"></i>{{ $formatTime(reply.replyTime) }}
                                     <i class="el-icon-star-off"></i>{{ reply.likeCount }}
                                     <el-button type="text" @click="showReplyView(comment.commentId, 1, reply.replyId)"><i class="el-icon-chat-line-square">回复</i></el-button><br>
                                 </div>
@@ -102,6 +102,10 @@ export default {
             console.log(this.replyForm);
         },
         submitComment() {
+            if (this.commentForm.content == '') {
+                this.$message.error('请输入评论内容');
+                return;
+            }
             axios.post(`http://localhost:7000/comment/add`, this.commentForm)
                 .then(response => {
                     console.log(response.data);
@@ -115,7 +119,10 @@ export default {
                 });
         },
         submitReply() {
-            console.log(this.replyForm);
+            if (this.replyForm.content == '') {
+                this.$message.error('请输入回复内容');
+                return;
+            }
             axios.post(`http://localhost:7000/reply/add`, this.replyForm)
                 .then(response => {
                     console.log(response.data);

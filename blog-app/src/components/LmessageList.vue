@@ -5,7 +5,7 @@
             <article v-for="lmessage in lmessages" :key="lmessage.lmessageId">
                 <div class="lmessage-card">
                     <header>
-                        <p class="meta">By 用户{{ lmessage.commenterId }} on {{ formatLeaveTime(lmessage.leaveTime) }}</p>
+                        <p class="meta">By 用户{{ lmessage.commenterId }} on {{ $formatTime(lmessage.leaveTime) }}</p>
                     </header>
                     <section>
                         <p>{{ lmessage.content }}</p>
@@ -39,11 +39,6 @@ export default {
                     console.error('获取留言失败:', error);
                     this.$message.error('获取留言失败');
                 });
-        },
-        formatLeaveTime(leaveTime) {
-            const date = new Date(leaveTime);
-            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-            return date.toLocaleString(undefined, options);
         }
     }
 }
