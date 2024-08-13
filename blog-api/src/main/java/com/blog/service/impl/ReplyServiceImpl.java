@@ -31,9 +31,8 @@ public class ReplyServiceImpl implements ReplyService {
     private AccountService accountService;
 
     @Override
-    public Result getRepliesByComment(Integer commentID) {
-        List<Reply> replies = replyMapper.selectByCommentId(Long.valueOf(commentID));
-
+    public Result getRepliesByArticleId(Integer commentID) {
+        List<Reply> replies = replyMapper.selectByArticleId(Long.valueOf(commentID));
         return Result.success(replies);
     }
 

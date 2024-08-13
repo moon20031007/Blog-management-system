@@ -41,6 +41,13 @@
         order by article_count desc
     </select>
 
+    <select id="findArticleTags" parameterType="java.lang.Long" resultType="com.blog.pojo.Tag">
+        select t.*
+        from tag as t
+        join article_tags as at on t.tag_id = at.tag_id
+        where at.article_id = #{articleId,jdbcType=INTEGER}
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from Tag
         where  tag_id = #{tagId,jdbcType=INTEGER} 

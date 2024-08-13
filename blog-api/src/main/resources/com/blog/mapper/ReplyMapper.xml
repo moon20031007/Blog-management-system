@@ -28,11 +28,11 @@
         where  reply_id = #{replyId,jdbcType=INTEGER} 
     </select>
 
-    <select id="selectByCommentId" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from reply
-        where comment_id = #{commentId,jdbcType=INTEGER}
+    <select id="selectByArticleId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select r.*
+        from reply as r
+        join comment as c on c.comment_id = r.comment_id and
+        c.article_id = #{articleId,jdbcType=INTEGER}
         order by reply_time asc
     </select>
 

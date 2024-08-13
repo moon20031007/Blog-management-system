@@ -13,7 +13,7 @@ import com.blog.util.result.Result;
  * @Version: v1.0
  */
 public interface ReplyService {
-    public Result getRepliesByComment(Integer commentID);
+    public Result getRepliesByArticleId(Integer commentID);
 
     public Result insert(Reply reply) ;
 }

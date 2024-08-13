@@ -14,4 +14,6 @@ public interface TagService {
     List<Article> fetchArticles(Integer id);
 
     List<Tag> hot();
+
+    List<Tag> findArticleTags(Integer id);
 }

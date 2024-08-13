@@ -44,7 +44,7 @@ public class CommentServiceImpl implements CommentService {
         try {
             Integer authenticatedUserId = GetCurrentID.getAuthenticatedUserId(accountService);
             comment.setCommenterId(authenticatedUserId);
-            if (commentMapper.insertSelective(comment)!=1){
+            if (commentMapper.insertSelective(comment) != 1){
                 throw new UnsupportedOperationException();
             }
             return Result.success();

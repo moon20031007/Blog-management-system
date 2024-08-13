@@ -25,7 +25,7 @@ public class ReplyController {
 
     @GetMapping("/list/{id}")
     public Result GetReplies(@PathVariable Integer id){
-        return replyService.getRepliesByComment(id);
+        return replyService.getRepliesByArticleId(id);
     }
 
     @PostMapping("/add")

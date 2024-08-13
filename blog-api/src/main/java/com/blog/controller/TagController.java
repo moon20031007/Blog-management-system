@@ -58,4 +58,14 @@ public class TagController {
         List<Tag> hotTags = tagService.hot();
         return Result.success(hotTags);
     }
+
+    @GetMapping("/article/{id}")
+    public Result getArticle(@PathVariable Integer id) {
+        try {
+            List<Tag> tags = tagService.findArticleTags(id);
+            return Result.success(tags);
+        } catch (Exception e) {
+            return Result.error(ResultCode.ERROR);
+        }
+    }
 }

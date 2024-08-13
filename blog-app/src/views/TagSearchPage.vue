@@ -20,7 +20,6 @@ export default {
     async created() {
         await this.fetchTag();
         await this.fetchArticles();
-        await this.fetchReplies();
     },
     methods: {
         async fetchTag() {

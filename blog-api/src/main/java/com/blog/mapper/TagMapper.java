@@ -30,4 +30,6 @@ public interface TagMapper {
     List<Article> fetchArticle(Long id);
 
     List<Tag> hottags();
+
+    List<Tag> findArticleTags(Long id);
 }
