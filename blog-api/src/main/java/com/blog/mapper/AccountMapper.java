@@ -3,6 +3,8 @@ package com.blog.mapper;
 import com.blog.pojo.Account;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 
 /**
 * @author Yixiao
@@ -27,4 +29,5 @@ public interface AccountMapper {
 
     int updateByPrimaryKey(Account record);
 
+    List<Account> getNames(List<Integer> ids);
 }

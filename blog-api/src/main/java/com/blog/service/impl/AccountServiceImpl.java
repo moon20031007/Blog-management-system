@@ -12,6 +12,8 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.Collections;
+import java.util.List;
 
 
 @Service
@@ -85,5 +87,10 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account getAccountByID(Integer id) {
         return accountMapper.selectByPrimaryKey(Long.valueOf(id));
+    }
+
+    @Override
+    public List<Account> getNames(List<Integer> ids) {
+        return accountMapper.getNames(ids);
     }
 }

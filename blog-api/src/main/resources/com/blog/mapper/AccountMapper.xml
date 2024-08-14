@@ -36,6 +36,16 @@
         where account_id = #{accountId,jdbcType=INTEGER}
     </select>
 
+    <select id="getNames" resultType="com.blog.pojo.Account">
+        select
+        account_id, nickname
+        from account
+        where account_id in
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item,jdbcType=INTEGER}
+        </foreach>
+    </select>
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
         delete from account
         where  account_id = #{accountId,jdbcType=INTEGER} 

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @CrossOrigin
@@ -63,5 +65,11 @@ public class AccountController {
         } catch (Exception e) {
             return Result.error(ResultCode.ERROR);
         }
+    }
+
+    @GetMapping("/names")
+    public Result names(@RequestParam List<Integer> userIds) {
+        List<Account> accounts = accountService.getNames(userIds);
+        return Result.success(accounts);
     }
 }
