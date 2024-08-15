@@ -1,6 +1,6 @@
 package com.blog.service;
 
-import com.blog.pojo.Likes;
+import com.blog.util.Enums.LikeableEnum;
 import com.blog.util.result.Result;
 
 /**
@@ -13,5 +13,8 @@ import com.blog.util.result.Result;
  * @Version: v1.0
  */
 public interface LikesService {
-    Result LikeAnLikable(Likes likes);
+    Result likeALikable(Integer userId, Integer likableId, LikeableEnum likableType);
+    public Result unlikeALikable(Integer userId, Integer likableId, LikeableEnum likableType);
+    Boolean isLiking(Integer userId, Integer likableId, LikeableEnum likableType);
+
 }

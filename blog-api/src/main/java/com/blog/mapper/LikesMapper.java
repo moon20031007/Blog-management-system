@@ -1,6 +1,7 @@
 package com.blog.mapper;
 
 import com.blog.pojo.Likes;
+import com.blog.util.Enums.LikeableEnum;
 
 /**
 * @author Yixiao
@@ -17,6 +18,8 @@ public interface LikesMapper {
     int insertSelective(Likes record);
 
     Likes selectByPrimaryKey(Long id);
+
+    Likes selectByIdAndType(Integer userId, Integer likeableId, LikeableEnum likeableType);
 
     int updateByPrimaryKeySelective(Likes record);
 
