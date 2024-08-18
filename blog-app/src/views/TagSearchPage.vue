@@ -8,8 +8,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     data() {
         return {
@@ -23,7 +21,7 @@ export default {
     },
     methods: {
         async fetchTag() {
-            axios.get(`http://localhost:7000/tag/detail/${this.$route.params.id}`)
+            this.$http.get(`/tag/detail/${this.$route.params.id}`)
                 .then(response => {
                     this.Tag = response.data.data;
                 })
@@ -33,7 +31,7 @@ export default {
                 });
         },
         async fetchArticles() {
-            axios.get(`http://localhost:7000/tag/${this.$route.params.id}/articles`)
+            this.$http.get(`/tag/${this.$route.params.id}/articles`)
                 .then(response => {
                     this.Articles = response.data.data;
                 })

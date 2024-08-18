@@ -47,8 +47,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     name: 'TestComponent',
     data() {
@@ -118,7 +116,7 @@ export default {
                         address: this.accountForm.address,
                         email: this.accountForm.email
                     };
-                    axios.post('http://localhost:7000/register', form)
+                    this.$http.post('/register', form)
                         .then(response => {
                             console.log(response.data);
                             this.$message({

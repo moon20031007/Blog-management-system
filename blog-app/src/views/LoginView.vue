@@ -22,8 +22,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     data() {
         var validateId = (rule, value, callback) => {
@@ -60,9 +58,9 @@ export default {
             this.$refs[formName].validate((valid) => {
                 const form = { username: this.ruleForm.id, password: this.ruleForm.pass };
                 if (valid) {
-                    axios.post('http://localhost:7000/login', form)
+                    this.$http.post('/login', form)
                         .then(response => {
-                            console.log(response.data);
+                            console.log(response);
                             this.$message({
                                 message: '登录成功！',
                                 type: 'success'
@@ -73,6 +71,8 @@ export default {
                             console.error('登录失败:', error);
                             this.$message.error('登录失败，请检查用户名和密码');
                         });
+                    let allCookies = document.cookie;
+                    console.log(allCookies);
                 } else {
                     return false;
                 }

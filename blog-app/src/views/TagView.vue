@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     data() {
         return {
@@ -27,7 +25,7 @@ export default {
     },
     methods: {
         async fetchTags() {
-            axios.get('http://localhost:7000/tag/list')
+            this.$http.get('/tag/list')
                 .then(response => {
                     this.Tags = response.data.data;
                 })

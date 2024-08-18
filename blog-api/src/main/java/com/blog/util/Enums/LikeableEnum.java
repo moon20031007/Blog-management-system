@@ -1,10 +1,10 @@
 package com.blog.util.Enums;
 
 public enum LikeableEnum {
-    ARTICLE("Article"),
-    COMMENT("Comment"),
-    REPLY("Reply"),
-    LMESSAGE("Lmessage");
+    Article("Article"),
+    Comment("Comment"),
+    Reply("Reply"),
+    Lmessage("Lmessage");
 
     private final String value;
 

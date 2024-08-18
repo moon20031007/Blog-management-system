@@ -30,8 +30,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     name: "MyArticleWriteEditor",
     data() {
@@ -74,7 +72,7 @@ export default {
     },
     methods: {
         async fetchCities() {
-            axios.get('http://localhost:7000/tag/list')
+            this.$http.get('/tag/list')
                 .then(response => {
                     this.cities = response.data.data;
                 })
@@ -94,7 +92,7 @@ export default {
                 };
                 console.log(form);
                 if (valid) {
-                    axios.post('http://localhost:7000/article/add', form)
+                    this.$http.post('/article/add', form)
                         .then(response => {
                             console.log(response.data);
                             this.$message({

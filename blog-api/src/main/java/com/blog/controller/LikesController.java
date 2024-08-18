@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @Version: v1.0
  */
 @RestController
-@CrossOrigin
+@CrossOrigin(allowCredentials = "true")
 @RequestMapping("/like")
 public class LikesController {
 

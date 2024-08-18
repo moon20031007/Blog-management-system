@@ -43,17 +43,17 @@ public class LikesServiceImpl implements LikesService {
             Integer count = 0;
 
             switch (likeableType) {
-                case ARTICLE:
+                case Article:
                     likable = articleMapper.selectByPrimaryKey(Long.valueOf(likeableId));
                     count = likable.beliked();
                     articleMapper.updateByPrimaryKeySelective((Article)likable);
                     break;
-                case COMMENT:
+                case Comment:
                     likable = commentMapper.selectByPrimaryKey(Long.valueOf(likeableId));
                     count = likable.beliked();
                     commentMapper.updateByPrimaryKeySelective((Comment)likable);
                     break;
-                case REPLY:
+                case Reply:
                     likable = replyMapper.selectByPrimaryKey(Long.valueOf(likeableId));
                     count = likable.beliked();
                     replyMapper.updateByPrimaryKeySelective((Reply)likable);
@@ -79,17 +79,17 @@ public class LikesServiceImpl implements LikesService {
             Integer count = 0;
 
             switch (likeableType) {
-                case ARTICLE:
+                case Article:
                     likable = articleMapper.selectByPrimaryKey(Long.valueOf(likeableId));
                     count = likable.unliked();
                     articleMapper.updateByPrimaryKeySelective((Article)likable);
                     break;
-                case COMMENT:
+                case Comment:
                     likable = commentMapper.selectByPrimaryKey(Long.valueOf(likeableId));
                     count = likable.unliked();
                     commentMapper.updateByPrimaryKeySelective((Comment)likable);
                     break;
-                case REPLY:
+                case Reply:
                     likable = replyMapper.selectByPrimaryKey(Long.valueOf(likeableId));
                     count = likable.unliked();
                     replyMapper.updateByPrimaryKeySelective((Reply)likable);

@@ -32,8 +32,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     name: 'MyAsideList',
     data() {
@@ -50,7 +48,7 @@ export default {
     },
     methods: {
         async fetchHotTags() {
-            axios.get('http://localhost:7000/tag/hot')
+            this.$http.get('/tag/hot')
                 .then(response => {
                         this.hotTags = response.data.data;
                     })
@@ -60,7 +58,7 @@ export default {
                 });
         },
         async fetchHotArticles() {
-            axios.get('http://localhost:7000/article/hot')
+            this.$http.get('/article/hot')
                 .then(response => {
                         this.hotArticles = response.data.data;
                     })
@@ -70,7 +68,7 @@ export default {
                 });
         },
         async fetchLatestArticles() {
-            axios.get('http://localhost:7000/article/latest')
+            this.$http.get('/article/latest')
                 .then(response => {
                         this.latestArticles = response.data.data;
                     })

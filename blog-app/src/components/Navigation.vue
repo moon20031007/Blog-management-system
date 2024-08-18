@@ -16,7 +16,7 @@
                         <el-dropdown>
                             <span class="el-dropdown-link"><el-avatar icon="el-icon-user-solid"></el-avatar></span>
                             <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item @click.native="handleLogout">退出登录</el-dropdown-item>
+                                <el-dropdown-item @click.native="logOut()">退出登录</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
                     </template>
@@ -49,6 +49,29 @@ export default {
     },
     created() {
         this.activeIndex = this.computedActiveIndex;
+        this.getCookie();
+    },
+    methods: {
+        getCookie() {
+            console.log(document.cookie);
+            var match = document.cookie.match(new RegExp('(^| )' + 'JSESSIONID' + '=([^;]+)'));
+            if (match) return match[2];
+        },
+        logOut() {
+            this.$http.get('/logout')
+                .then(response => {
+                    console.log(response);
+                    this.$message({
+                        message: '退出成功！',
+                        type: 'success'
+                    });
+                    this.$router.replace(this.$route).catch(() => {});
+                })
+                .catch(error => {
+                    console.error('退出失败:', error);
+                    this.$message.error('退出失败，请稍后再试');
+                });
+        }
     }
 }
 </script>

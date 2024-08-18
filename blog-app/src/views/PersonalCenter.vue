@@ -26,8 +26,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     data() {
         return{
@@ -39,7 +37,7 @@ export default {
     },
     methods: {
         async fetchAccount() {
-            axios.get(`http://localhost:7000/user/detail/${this.$route.params.id}`)
+            this.$http.get(`/user/detail/${this.$route.params.id}`)
                 .then(response => {
                     this.account = response.data.data;
                 })

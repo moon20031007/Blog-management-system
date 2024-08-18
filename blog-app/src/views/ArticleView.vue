@@ -63,8 +63,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     data() {
         return {
@@ -107,7 +105,7 @@ export default {
                 this.$message.error('请输入评论内容');
                 return;
             }
-            axios.post(`http://localhost:7000/comment/add`, this.commentForm)
+            this.$http.post(`/comment/add`, this.commentForm)
                 .then(response => {
                     console.log(response.data);
                     this.$message.success('提交成功');
@@ -124,7 +122,7 @@ export default {
                 this.$message.error('请输入回复内容');
                 return;
             }
-            axios.post(`http://localhost:7000/reply/add`, this.replyForm)
+            this.$http.post(`/reply/add`, this.replyForm)
                 .then(response => {
                     console.log(response.data);
                     this.$message.success('提交成功');
@@ -137,7 +135,7 @@ export default {
                 });
         },
         async fetchArticle() {
-            axios.get(`http://localhost:7000/article/detail/${this.$route.params.id}`)
+            this.$http.get(`/article/detail/${this.$route.params.id}`)
                 .then(response => {
                     this.article = response.data.data;
                     if (!this.users[this.article.authorId]) {
@@ -150,7 +148,7 @@ export default {
                 });
         },
         async fetchTags() {
-            axios.get(`http://localhost:7000/tag/article/${this.$route.params.id}`)
+            this.$http.get(`/tag/article/${this.$route.params.id}`)
                 .then(response => {
                     this.tags = response.data.data;
                 })
@@ -160,7 +158,7 @@ export default {
                 });
         },
         async fetchComments() {
-            axios.get(`http://localhost:7000/comment/list/${this.$route.params.id}`)
+            this.$http.get(`/comment/list/${this.$route.params.id}`)
                 .then(response => {
                     this.comments = response.data.data;
                     this.comments.forEach(comment => {
@@ -175,7 +173,7 @@ export default {
                 });
         },
         async fetchReplies() {
-            axios.get(`http://localhost:7000/reply/list/${this.$route.params.id}`)
+            this.$http.get(`/reply/list/${this.$route.params.id}`)
                 .then(response => {
                     this.replies = response.data.data;
                     this.replies.forEach(reply => {
@@ -197,7 +195,7 @@ export default {
         },
         fetchNames(keys) {
             console.log(keys.join(','));
-            axios.get(`http://localhost:7000/user/names`, {params: {userIds: keys.join(',')}})
+            this.$http.get(`/user/names`, {params: {userIds: keys.join(',')}})
                 .then(response => {
                     response.data.data.forEach(user => this.users[user.accountId.toString()] = user.nickname);
                     this.commentsKey++;

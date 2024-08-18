@@ -17,8 +17,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     name: 'MyLmessageList',
     data() {
@@ -31,7 +29,7 @@ export default {
     },
     methods: {
         async fetchLmessages() {
-            axios.get('http://localhost:7000/lmessage/list')
+            this.$http.get('/lmessage/list')
                 .then(response => {
                     this.lmessages = response.data.data;
                 })

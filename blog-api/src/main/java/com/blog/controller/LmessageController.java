@@ -22,7 +22,7 @@ import java.util.List;
  *
 */
 @RestController
-@CrossOrigin
+@CrossOrigin(allowCredentials = "true")
 @RequestMapping("/lmessage")
 public class LmessageController {
 

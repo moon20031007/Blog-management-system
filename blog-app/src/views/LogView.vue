@@ -19,8 +19,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 export default {
     name: 'MyLogList',
     data() {
@@ -33,13 +31,13 @@ export default {
     },
     methods: {
         async fetchLogs() {
-            axios.get('http://localhost:7000/log/all')
+            this.$http.get('/log/all')
                 .then(response => {
                     this.logs = response.data.data;
                 })
                 .catch(error => {
-                    console.error('获取标签失败:', error);
-                    this.$message.error('获取标签失败');
+                    console.error('获取日志失败:', error);
+                    this.$message.error('获取日志失败');
                 });
         }
     }

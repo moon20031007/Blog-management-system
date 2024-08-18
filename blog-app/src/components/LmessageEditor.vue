@@ -15,8 +15,6 @@
 
 
 <script>
-import axios from 'axios';
-
 export default {
     name: "MyLmessageEditor",
     data() {
@@ -44,7 +42,7 @@ export default {
                 const form = { commenterId: 1, context: this.messageForm.textarea };
                 console.log(form);
                 if (valid) {
-                    axios.post('http://localhost:7000/lmessage/add', form)
+                    this.$http.post('/lmessage/add', form)
                         .then(response => {
                             console.log(response.data);
                             this.$message({

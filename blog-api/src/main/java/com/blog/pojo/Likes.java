@@ -23,7 +23,7 @@ public class Likes implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public Likes() {
-        likeableType= LikeableEnum.COMMENT;
+        likeableType= LikeableEnum.Comment;
     }
 
     public Likes(Integer userId, Integer likeableId, LikeableEnum likeableType) {

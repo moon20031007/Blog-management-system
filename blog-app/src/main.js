@@ -3,6 +3,8 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import App from './App.vue'
 import router from './router'
+import http from './http';
+
 import MyNavigation from './components/Navigation.vue'
 import MyArticleList from './components/Articlelist.vue'
 import MyAsideList from './components/Asidelist.vue'
@@ -27,6 +29,8 @@ Vue.prototype.$formatTime = function (time) {
     const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
     return date.toLocaleString(undefined, options);
 };
+
+Vue.prototype.$http = http;
 
 new Vue({
     router,
