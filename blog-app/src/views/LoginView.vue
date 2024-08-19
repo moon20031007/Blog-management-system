@@ -60,19 +60,16 @@ export default {
                 if (valid) {
                     this.$http.post('/login', form)
                         .then(response => {
-                            console.log(response);
-                            this.$message({
-                                message: '登录成功！',
-                                type: 'success'
-                            });
-                            this.$router.push('/');
+                            if (response.data.code == 0) {
+                                this.$message.success('登录成功！');
+                                this.$router.push('/');
+                            } else {
+                                this.$message.error('登录失败：' + response.data.msg);
+                            }
                         })
                         .catch(error => {
-                            console.error('登录失败:', error);
-                            this.$message.error('登录失败，请检查用户名和密码');
+                            this.$message.error('登录失败：' + error);
                         });
-                    let allCookies = document.cookie;
-                    console.log(allCookies);
                 } else {
                     return false;
                 }

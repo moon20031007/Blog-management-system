@@ -34,8 +34,7 @@ export default {
                     this.lmessages = response.data.data;
                 })
                 .catch(error => {
-                    console.error('获取留言失败:', error);
-                    this.$message.error('获取留言失败');
+                    this.$message.error('获取留言失败：' + error);
                 });
         }
     }

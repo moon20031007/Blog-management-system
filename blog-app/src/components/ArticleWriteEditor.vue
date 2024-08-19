@@ -77,8 +77,7 @@ export default {
                     this.cities = response.data.data;
                 })
                 .catch(error => {
-                    console.error('获取标签失败:', error);
-                    this.$message.error('获取标签失败');
+                    this.$message.error('获取标签失败：' + error);
                 });
         },
         submitForm(formName) {
@@ -94,15 +93,14 @@ export default {
                 if (valid) {
                     this.$http.post('/article/add', form)
                         .then(response => {
-                            console.log(response.data);
-                            this.$message({
-                                message: '文章提交成功！',
-                                type: 'success'
-                            });
+                            if (response.data.code == 0) {
+                                this.$message.success('文章提交成功！');                            
+                            } else {
+                                this.$message.error('文章提交失败：' + response.data.msg);
+                            }
                         })
                         .catch(error => {
-                            console.error('文章提交失败:', error);
-                            this.$message.error('提交失败，请检查登陆状态');
+                            this.$message.error('文章提交失败：' + error);
                         });
                 } else {
                     return false;

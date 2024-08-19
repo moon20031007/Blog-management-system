@@ -42,8 +42,7 @@ export default {
                     this.account = response.data.data;
                 })
                 .catch(error => {
-                    console.error('获取账户失败:', error);
-                    this.$message.error('获取账户失败');
+                    this.$message.error('获取用户信息失败：' + error);
                 });
         }
     }

@@ -23,7 +23,7 @@
                     </el-card>
                     <p>{{ article.content }}</p>
                 </article>
-                <el-card v-bind:key="commentsKey">
+                <el-card :key="commentsKey">
                     <h3>评论区</h3>
                     <el-form :model="commentForm">
                         <el-input v-model="commentForm.content" type="textarea" autosize placeholder="请输入评论" style="width: 85%;"></el-input>
@@ -107,14 +107,16 @@ export default {
             }
             this.$http.post(`/comment/add`, this.commentForm)
                 .then(response => {
-                    console.log(response.data);
-                    this.$message.success('提交成功');
-                    this.commentForm.content = '';
-                    this.commentsKey++;
+                    if (response.data.code == 0) {
+                        this.$message.success('提交成功');
+                        this.commentForm.content = '';
+                        setTimeout(() => location.reload(), 3000);
+                    } else {
+                        this.$message.error('提交失败：' + response.data.msg);
+                    }
                 })
                 .catch(error => {
-                    console.error('提交文章失败:', error);
-                    this.$message.error('提交文章失败');
+                    this.$message.error('提交文章失败：' + error);
                 });
         },
         submitReply() {
@@ -127,11 +129,10 @@ export default {
                     console.log(response.data);
                     this.$message.success('提交成功');
                     this.replyForm.content = '';
-                    this.commentsKey++;
+                    setTimeout(() => location.reload(), 3000);
                 })
                 .catch(error => {
-                    console.error('提交回复失败:', error);
-                    this.$message.error('提交回复失败');
+                    this.$message.error('提交回复失败：' + error);
                 });
         },
         async fetchArticle() {
@@ -143,8 +144,7 @@ export default {
                     }
                 })
                 .catch(error => {
-                    console.error('获取文章失败:', error);
-                    this.$message.error('获取文章失败');
+                    this.$message.error('获取文章失败：' + error);
                 });
         },
         async fetchTags() {
@@ -153,8 +153,7 @@ export default {
                     this.tags = response.data.data;
                 })
                 .catch(error => {
-                    console.error('获取标签失败:', error);
-                    this.$message.error('获取标签失败');
+                    this.$message.error('获取标签失败：' + error);
                 });
         },
         async fetchComments() {
@@ -168,8 +167,7 @@ export default {
                     });
                 })
                 .catch(error => {
-                    console.error('获取评论失败:', error);
-                    this.$message.error('获取评论失败');
+                    this.$message.error('获取评论失败：' + error);
                 });
         },
         async fetchReplies() {
@@ -189,8 +187,7 @@ export default {
                     this.fetchNames(Object.keys(this.users));
                 })
                 .catch(error => {
-                    console.error('获取回复失败:', error);
-                    this.$message.error('获取回复失败');
+                    this.$message.error('获取回复失败：' + error);
                 });
         },
         fetchNames(keys) {
@@ -201,8 +198,7 @@ export default {
                     this.commentsKey++;
                 })
                 .catch(error => {
-                    console.log(error);
-                    this.$message.error('获取用户名失败');
+                    this.$message.error('获取用户名失败：' + error);
                 });
         }
     }

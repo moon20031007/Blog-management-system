@@ -53,8 +53,7 @@ export default {
                         this.hotTags = response.data.data;
                     })
                 .catch(error => {
-                    console.error('获取最热标签失败:', error);
-                    this.$message.error('获取最热标签失败');
+                    this.$message.error('获取最热标签失败：' + error);
                 });
         },
         async fetchHotArticles() {
@@ -63,8 +62,7 @@ export default {
                         this.hotArticles = response.data.data;
                     })
                 .catch(error => {
-                    console.error('获取最热文章失败:', error);
-                    this.$message.error('获取最热文章失败');
+                    this.$message.error('获取最热文章失败：' + error);
                 });
         },
         async fetchLatestArticles() {
@@ -73,8 +71,7 @@ export default {
                         this.latestArticles = response.data.data;
                     })
                 .catch(error => {
-                    console.error('获取最新文章失败:', error);
-                    this.$message.error('获取最新文章失败');
+                    this.$message.error('获取最新文章失败：' + error);
                 });
         }
     }

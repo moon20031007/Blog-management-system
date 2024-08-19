@@ -30,8 +30,7 @@ export default {
                     this.Tags = response.data.data;
                 })
                 .catch(error => {
-                    console.error('获取标签失败:', error);
-                    this.$message.error('获取标签失败');
+                    this.$message.error('获取标签失败：' + error);
                 });
         },
         viewTag(id) {

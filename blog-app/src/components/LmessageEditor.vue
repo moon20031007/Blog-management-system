@@ -40,19 +40,17 @@ export default {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
                 const form = { commenterId: 1, context: this.messageForm.textarea };
-                console.log(form);
                 if (valid) {
                     this.$http.post('/lmessage/add', form)
                         .then(response => {
-                            console.log(response.data);
-                            this.$message({
-                                message: '留言提交成功！',
-                                type: 'success'
-                            });
+                            if (response.data.code == 0) {
+                                this.$message.success('留言提交成功！');                            
+                            } else {
+                                this.$message.error('留言提交失败：' + response.data.msg);
+                            }
                         })
                         .catch(error => {
-                            console.error('留言提交失败:', error);
-                            this.$message.error('登录失败，请检查登陆状态',);
+                            this.$message.error('留言提交失败：' + error);
                         });
                 } else {
                     return false;

@@ -36,8 +36,7 @@ export default {
                     this.logs = response.data.data;
                 })
                 .catch(error => {
-                    console.error('获取日志失败:', error);
-                    this.$message.error('获取日志失败');
+                    this.$message.error('获取日志失败：' + error);
                 });
         }
     }

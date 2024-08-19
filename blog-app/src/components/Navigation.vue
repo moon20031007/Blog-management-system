@@ -71,15 +71,15 @@ export default {
             this.$http.get('/logout')
                 .then(response => {
                     console.log(response);
-                    this.$message({
-                        message: '退出成功！',
-                        type: 'success'
-                    });
-                    this.checkLogged();
+                    if (response.data.code == 0) {
+                        this.$message.success('退出成功！');
+                        this.checkLogged();                        
+                    } else {
+                        this.$message.error('退出失败：' + response.data.msg);
+                    }
                 })
                 .catch(error => {
-                    console.error('退出失败:', error);
-                    this.$message.error('退出失败，请稍后再试');
+                    this.$message.error('退出失败：' + error);
                 });
         }
     }

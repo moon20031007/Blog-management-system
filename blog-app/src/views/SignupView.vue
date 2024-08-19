@@ -119,15 +119,15 @@ export default {
                     this.$http.post('/register', form)
                         .then(response => {
                             console.log(response.data);
-                            this.$message({
-                                message: '注册成功！',
-                                type: 'success'
-                            });
-                            this.$router.push('/login');
+                            if (response.data.code == 0) {
+                                this.$message.success('注册成功！');
+                                this.$router.push('/login');                                
+                            } else {
+                                this.$message.error('注册失败：' + response.data.msg);
+                            }
                         })
                         .catch(error => {
-                            console.error('注册失败:', error);
-                            this.$message.error('注册失败，请检查用户名和密码');
+                            this.$message.error('注册失败：' + error);
                         });
                 } else {
                     return false;
