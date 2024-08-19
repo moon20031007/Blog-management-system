@@ -31,7 +31,7 @@ export default {
     name: 'MyNavigation',
     data() {
         return {
-            isLoggedIn: false,
+            isLoggedIn: '',
             activeIndex: ''
         };
     },
@@ -48,14 +48,24 @@ export default {
         }
     },
     created() {
-        this.activeIndex = this.computedActiveIndex;
-        this.getCookie();
+        this.checkLogged().then(() => {
+            this.activeIndex = this.computedActiveIndex;
+        });
     },
     methods: {
-        getCookie() {
-            console.log(document.cookie);
-            var match = document.cookie.match(new RegExp('(^| )' + 'JSESSIONID' + '=([^;]+)'));
-            if (match) return match[2];
+        async checkLogged() {
+            try {
+                const response = await this.$http.get('/check');
+                if (response.data.code == 0) {
+                    this.isLoggedIn = true;
+                } else {
+                    this.isLoggedIn = false;
+                }
+            } catch (error) {
+                console.error('查询登录状态失败:', error);
+                this.$message.error('查询登录状态失败，请稍后再试');
+                this.isLoggedIn = false;
+            }
         },
         logOut() {
             this.$http.get('/logout')
@@ -65,7 +75,7 @@ export default {
                         message: '退出成功！',
                         type: 'success'
                     });
-                    this.$router.replace(this.$route).catch(() => {});
+                    this.checkLogged();
                 })
                 .catch(error => {
                     console.error('退出失败:', error);

@@ -10,6 +10,9 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * ClassName: LoginController
  * Package: com.blog.controller
@@ -60,14 +63,30 @@ public class LoginController {
         System.out.println("注册成功，用户名为："+username);
         return Result.success();
     }
+
     @GetMapping("/logout")
-    public Result logout() {
+    public Result logout(HttpServletResponse response) {
 
         Subject subject = SecurityUtils.getSubject();
         subject.logout();
 
+        Cookie sessionCookie = new Cookie("JSESSIONID", null);
+        sessionCookie.setMaxAge(0);
+        sessionCookie.setPath("/");
+        response.addCookie(sessionCookie);
+
         System.out.println("退出成功");
 
         return Result.success();
+    }
+
+    @GetMapping("/check")
+    public Result check() {
+        Subject subject = SecurityUtils.getSubject();
+        if (subject.isAuthenticated()) {
+            return Result.success();
+        } else {
+            return Result.error(ResultCode.ERROR);
+        }
     }
 }
