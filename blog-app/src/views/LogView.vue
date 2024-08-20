@@ -33,7 +33,11 @@ export default {
         async fetchLogs() {
             this.$http.get('/log/all')
                 .then(response => {
-                    this.logs = response.data.data;
+                    if (response.data.code == 0) {
+                        this.logs = response.data.data;
+                    } else {
+                        this.$message.error('获取日志失败：' + response.data.msg);
+                    }
                 })
                 .catch(error => {
                     this.$message.error('获取日志失败：' + error);

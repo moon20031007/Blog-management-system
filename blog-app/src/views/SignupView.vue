@@ -118,10 +118,9 @@ export default {
                     };
                     this.$http.post('/register', form)
                         .then(response => {
-                            console.log(response.data);
                             if (response.data.code == 0) {
                                 this.$message.success('注册成功！');
-                                this.$router.push('/login');                                
+                                this.$router.push('/login');
                             } else {
                                 this.$message.error('注册失败：' + response.data.msg);
                             }

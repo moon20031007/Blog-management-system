@@ -50,8 +50,12 @@ export default {
         async fetchHotTags() {
             this.$http.get('/tag/hot')
                 .then(response => {
-                        this.hotTags = response.data.data;
-                    })
+                    if (response.data.code == 0) {
+                        this.hotTags = response.data.data;                    
+                    } else {
+                        this.$message.error('获取最热标签失败：' + response.data.msg);
+                    }
+                })
                 .catch(error => {
                     this.$message.error('获取最热标签失败：' + error);
                 });
@@ -59,8 +63,12 @@ export default {
         async fetchHotArticles() {
             this.$http.get('/article/hot')
                 .then(response => {
-                        this.hotArticles = response.data.data;
-                    })
+                    if (response.data.code == 0) {
+                        this.hotArticles = response.data.data;                    
+                    } else {
+                        this.$message.error('获取最热文章失败：' + response.data.msg);
+                    }
+                })
                 .catch(error => {
                     this.$message.error('获取最热文章失败：' + error);
                 });
@@ -68,8 +76,12 @@ export default {
         async fetchLatestArticles() {
             this.$http.get('/article/latest')
                 .then(response => {
-                        this.latestArticles = response.data.data;
-                    })
+                    if (response.data.code == 0) {
+                        this.latestArticles = response.data.data;                    
+                    } else {
+                        this.$message.error('获取最新文章失败：' + response.data.msg);
+                    }
+                })
                 .catch(error => {
                     this.$message.error('获取最新文章失败：' + error);
                 });

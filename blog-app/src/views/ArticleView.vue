@@ -26,7 +26,8 @@
                 <el-card :key="commentsKey">
                     <h3>评论区</h3>
                     <el-form :model="commentForm">
-                        <el-input v-model="commentForm.content" type="textarea" autosize placeholder="请输入评论" style="width: 85%;"></el-input>
+                        <el-input v-model="commentForm.content" type="textarea" autosize placeholder="请输入评论"
+                            style="width: 85%;"></el-input>
                         <el-button type="primary" @click="submitComment()">提交</el-button>
                     </el-form>
                     <div v-for="comment in comments" :key="comment">
@@ -36,9 +37,11 @@
                             <i class="el-icon-time"></i>{{ $formatTime(comment.commentTime) }}
                             <i class="el-icon-star-off"></i>{{ comment.likeCount }}
                         </small>
-                        <el-button type="text" @click="showReplyView(comment.commentId, 0, 0)"><i class="el-icon-chat-line-square">回复</i></el-button>
+                        <el-button type="text" @click="showReplyView(comment.commentId, 0, 0)"><i
+                                class="el-icon-chat-line-square">回复</i></el-button>
                         <el-collapse v-model="activeNames">
-                            <el-collapse-item v-if="findReplies(comment.commentId).length" :title="activeNames.includes(comment.commentId) ? '收起' : '展开'" :name=comment.commentId>
+                            <el-collapse-item v-if="findReplies(comment.commentId).length"
+                                :title="activeNames.includes(comment.commentId) ? '收起' : '展开'" :name=comment.commentId>
                                 <div v-for="reply in findReplies(comment.commentId)" :key="reply">
                                     <i class="el-icon-user-solid user">{{ users[reply.replierId] }}：</i>
                                     <template v-if="reply.replyType == 1">
@@ -47,11 +50,16 @@
                                     {{ reply.content }}<br>
                                     <i class="el-icon-time"></i>{{ $formatTime(reply.replyTime) }}
                                     <i class="el-icon-star-off"></i>{{ reply.likeCount }}
-                                    <el-button type="text" @click="showReplyView(comment.commentId, 1, reply.replyId, reply.replierId)"><i class="el-icon-chat-line-square">回复</i></el-button><br>
+                                    <el-button type="text"
+                                        @click="showReplyView(comment.commentId, 1, reply.replyId, reply.replierId)"><i
+                                            class="el-icon-chat-line-square">回复</i></el-button><br>
                                 </div>
                             </el-collapse-item>
-                            <el-form v-show="isReplyFormVisible.includes(comment.commentId)" ref="replyForm" :model="replyForm">
-                                <el-input v-model="replyForm.content" type="textarea" autosize :placeholder="replyForm.toReplyId ? `回复 @${users[replyForm.toId]}` : '回复'" style="width: 85%;"></el-input>
+                            <el-form v-show="isReplyFormVisible.includes(comment.commentId)" ref="replyForm"
+                                :model="replyForm">
+                                <el-input v-model="replyForm.content" type="textarea" autosize
+                                    :placeholder="replyForm.toReplyId ? `回复 @${users[replyForm.toId]}` : '回复'"
+                                    style="width: 85%;"></el-input>
                                 <el-button type="primary" @click="submitReply()">提交</el-button>
                             </el-form>
                         </el-collapse>
@@ -73,7 +81,7 @@ export default {
             comments: [],
             replies: [],
             commentForm: { articleId: this.$route.params.id, content: '' },
-            replyForm: { content: '', replyType: '', commentId: '', toReplyId: '', toId: ''},
+            replyForm: { content: '', replyType: '', commentId: '', toReplyId: '', toId: '' },
             activeNames: [],
             users: {}
         };
@@ -126,10 +134,13 @@ export default {
             }
             this.$http.post(`/reply/add`, this.replyForm)
                 .then(response => {
-                    console.log(response.data);
-                    this.$message.success('提交成功');
-                    this.replyForm.content = '';
-                    setTimeout(() => location.reload(), 3000);
+                    if (response.data.code == 0) {
+                        this.$message.success('提交成功');
+                        this.replyForm.content = '';
+                        setTimeout(() => location.reload(), 3000);
+                    } else {
+                        this.$message.error('提交回复失败：' + response.data.msg);
+                    }
                 })
                 .catch(error => {
                     this.$message.error('提交回复失败：' + error);
@@ -138,9 +149,13 @@ export default {
         async fetchArticle() {
             this.$http.get(`/article/detail/${this.$route.params.id}`)
                 .then(response => {
-                    this.article = response.data.data;
-                    if (!this.users[this.article.authorId]) {
-                        this.users[this.article.authorId] = '';
+                    if (response.data.code == 0) {
+                        this.article = response.data.data;
+                        if (!this.users[this.article.authorId]) {
+                            this.users[this.article.authorId] = '';
+                        }
+                    } else {
+                        this.$message.error('获取文章失败：' + response.data.msg);
                     }
                 })
                 .catch(error => {
@@ -150,7 +165,11 @@ export default {
         async fetchTags() {
             this.$http.get(`/tag/article/${this.$route.params.id}`)
                 .then(response => {
-                    this.tags = response.data.data;
+                    if (response.data.code == 0) {
+                        this.tags = response.data.data;
+                    } else {
+                        this.$message.error('获取标签失败：' + response.data.msg);
+                    }
                 })
                 .catch(error => {
                     this.$message.error('获取标签失败：' + error);
@@ -159,12 +178,16 @@ export default {
         async fetchComments() {
             this.$http.get(`/comment/list/${this.$route.params.id}`)
                 .then(response => {
-                    this.comments = response.data.data;
-                    this.comments.forEach(comment => {
-                        if (!this.users[comment.commenterId]) {
-                            this.users[comment.commenterId] = '';
-                        }
-                    });
+                    if (response.data.code == 0) {
+                        this.comments = response.data.data;
+                        this.comments.forEach(comment => {
+                            if (!this.users[comment.commenterId]) {
+                                this.users[comment.commenterId] = '';
+                            }
+                        });
+                    } else {
+                        this.$message.error('获取评论失败：' + response.data.msg);
+                    }
                 })
                 .catch(error => {
                     this.$message.error('获取评论失败：' + error);
@@ -173,17 +196,21 @@ export default {
         async fetchReplies() {
             this.$http.get(`/reply/list/${this.$route.params.id}`)
                 .then(response => {
-                    this.replies = response.data.data;
-                    this.replies.forEach(reply => {
-                        if (!this.users[reply.replierId]) {
-                            this.users[reply.replierId] = '';
-                        }
-                        if (reply.toReplyId) {
-                            if (!this.users[reply.toId]) {
-                                this.users[reply.toId] = '';
+                    if (response.data.code == 0) {
+                        this.replies = response.data.data;
+                        this.replies.forEach(reply => {
+                            if (!this.users[reply.replierId]) {
+                                this.users[reply.replierId] = '';
                             }
-                        }
-                    });
+                            if (reply.toReplyId) {
+                                if (!this.users[reply.toId]) {
+                                    this.users[reply.toId] = '';
+                                }
+                            }
+                        });
+                    } else {
+                        this.$message.error('获取回复失败：' + response.data.msg);
+                    }
                     this.fetchNames(Object.keys(this.users));
                 })
                 .catch(error => {
@@ -191,11 +218,14 @@ export default {
                 });
         },
         fetchNames(keys) {
-            console.log(keys.join(','));
-            this.$http.get(`/user/names`, {params: {userIds: keys.join(',')}})
+            this.$http.get(`/user/names`, { params: { userIds: keys.join(',') } })
                 .then(response => {
-                    response.data.data.forEach(user => this.users[user.accountId.toString()] = user.nickname);
-                    this.commentsKey++;
+                    if (response.data.code == 0) {
+                        response.data.data.forEach(user => this.users[user.accountId.toString()] = user.nickname);
+                        this.commentsKey++;
+                    } else {
+                        this.$message.error('获取用户名失败：' + response.data.msg);
+                    }
                 })
                 .catch(error => {
                     this.$message.error('获取用户名失败：' + error);

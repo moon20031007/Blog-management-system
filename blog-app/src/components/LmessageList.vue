@@ -31,7 +31,11 @@ export default {
         async fetchLmessages() {
             this.$http.get('/lmessage/list')
                 .then(response => {
-                    this.lmessages = response.data.data;
+                    if (response.data.code == 0) {
+                        this.lmessages = response.data.data;                    
+                    } else {
+                        this.$message.error('获取留言失败：' + response.data.msg);
+                    }
                 })
                 .catch(error => {
                     this.$message.error('获取留言失败：' + error);

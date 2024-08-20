@@ -27,7 +27,11 @@ export default {
         async fetchTags() {
             this.$http.get('/tag/list')
                 .then(response => {
-                    this.Tags = response.data.data;
+                    if (response.data.code == 0) {
+                        this.Tags = response.data.data;
+                    } else {
+                        this.$message.error('获取标签失败：' + response.data.msg);
+                    }
                 })
                 .catch(error => {
                     this.$message.error('获取标签失败：' + error);

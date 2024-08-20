@@ -62,8 +62,7 @@ export default {
                     this.isLoggedIn = false;
                 }
             } catch (error) {
-                console.error('查询登录状态失败:', error);
-                this.$message.error('查询登录状态失败，请稍后再试');
+                this.$message.error('查询登录状态失败：' + error);
                 this.isLoggedIn = false;
             }
         },
