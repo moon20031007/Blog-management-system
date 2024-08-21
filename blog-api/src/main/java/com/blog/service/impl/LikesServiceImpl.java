@@ -120,7 +120,7 @@ public class LikesServiceImpl implements LikesService {
         System.out.println(likeableId);
         System.out.println(likeableType);
         Likes likeSelected = likesMapper.selectByIdAndType(userId,likeableId,likeableType);
-        return likeSelected == null;
+        return likeSelected != null;
     }
 }
 

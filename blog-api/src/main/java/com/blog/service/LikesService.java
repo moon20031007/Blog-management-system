@@ -14,7 +14,6 @@ import com.blog.util.result.Result;
  */
 public interface LikesService {
     Result likeALikable(Integer userId, Integer likableId, LikeableEnum likableType);
-    public Result unlikeALikable(Integer userId, Integer likableId, LikeableEnum likableType);
+    Result unlikeALikable(Integer userId, Integer likableId, LikeableEnum likableType);
     Boolean isLiking(Integer userId, Integer likableId, LikeableEnum likableType);
-
 }

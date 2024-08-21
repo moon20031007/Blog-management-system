@@ -11,8 +11,12 @@
                             <i class="el-icon-user-solid"></i>{{ users[article.authorId] }}
                             <i class="el-icon-upload"></i>{{ $formatTime(article.publishTime) }}
                             <i class="el-icon-view"></i>{{ article.readCount }}
-                            <i class="el-icon-star-off"></i>{{ article.likeCount }}
                             <i class="el-icon-chat-line-round"></i>{{ article.commentCount }}
+                            <div class="like" @click="putLike('Article', article.articleId)">
+                                <i v-if="likeCount.article" class="el-icon-star-on"></i>
+                                <i v-else class="el-icon-star-off"></i>
+                                {{ article.likeCount }}
+                            </div>
                         </div>
                         <div>
                             文章标签:
@@ -35,7 +39,11 @@
                         {{ comment.content }}<br>
                         <small>
                             <i class="el-icon-time"></i>{{ $formatTime(comment.commentTime) }}
-                            <i class="el-icon-star-off"></i>{{ comment.likeCount }}
+                            <div class="like" @click="putLike('Comment', comment.commentId)">
+                                <i v-if="likeCount.comment[comment.commentId]" class="el-icon-star-on"></i>
+                                <i v-else class="el-icon-star-off"></i>
+                                {{ comment.likeCount }}
+                            </div>
                         </small>
                         <el-button type="text" @click="showReplyView(comment.commentId, 0, 0)"><i
                                 class="el-icon-chat-line-square">回复</i></el-button>
@@ -49,7 +57,11 @@
                                     </template>
                                     {{ reply.content }}<br>
                                     <i class="el-icon-time"></i>{{ $formatTime(reply.replyTime) }}
-                                    <i class="el-icon-star-off"></i>{{ reply.likeCount }}
+                                    <div class="like" @click="putLike('Reply', reply.replyId)">
+                                        <i v-if="likeCount.reply[reply.replyId]" class="el-icon-star-on"></i>
+                                        <i v-else class="el-icon-star-off"></i>
+                                        {{ reply.likeCount }}
+                                    </div>
                                     <el-button type="text"
                                         @click="showReplyView(comment.commentId, 1, reply.replyId, reply.replierId)"><i
                                             class="el-icon-chat-line-square">回复</i></el-button><br>
@@ -83,14 +95,21 @@ export default {
             commentForm: { articleId: this.$route.params.id, content: '' },
             replyForm: { content: '', replyType: '', commentId: '', toReplyId: '', toId: '' },
             activeNames: [],
-            users: {}
+            users: {},
+            likeCount: {
+                article: false,
+                comment: {},
+                reply: {}
+            }
         };
     },
     async created() {
+        await Promise.all
         await this.fetchArticle();
         await this.fetchTags();
         await this.fetchComments();
         await this.fetchReplies();
+        this.$forceUpdate();
     },
     methods: {
         findReplies(id) {
@@ -146,6 +165,44 @@ export default {
                     this.$message.error('提交回复失败：' + error);
                 });
         },
+        putLike(type, id) {
+            this.$http.put(`/like/${type}/${id}`)
+                .then(response => {
+                    if (response.data.code == 0) {
+                        if (type == 'Article') {
+                            if (this.likeCount.article == false) {
+                                this.article.likeCount++;
+                            } else {
+                                this.article.likeCount--;
+                            }
+                            this.likeCount.article = !this.likeCount.article;
+                        } else if (type == 'Comment') {
+                            let comment = this.comments.find(c => c.commentId == id);
+                            if (this.likeCount.comment[id] == false) {
+                                comment.likeCount++;
+                            } else {
+                                comment.likeCount--;
+                            }
+                            this.likeCount.comment[id] = !this.likeCount.comment[id];
+                        } else if (type == 'Reply') {
+                            let reply = this.replies.find(r => r.replyId == id);
+                            if (this.likeCount.reply[id] == false) {
+                                reply.likeCount++;
+                            } else {
+                                reply.likeCount--;
+                            }
+                            this.likeCount.reply[id] = !this.likeCount.reply[id];
+                        }
+                        this.$message.success('点赞成功！');
+                        this.$forceUpdate();
+                    } else {
+                        this.$message.error('点赞失败：' + response.data.msg);
+                    }
+                })
+                .catch(error => {
+                    this.$message.error('点赞失败：' + error);
+                })
+        },
         async fetchArticle() {
             this.$http.get(`/article/detail/${this.$route.params.id}`)
                 .then(response => {
@@ -184,6 +241,7 @@ export default {
                             if (!this.users[comment.commenterId]) {
                                 this.users[comment.commenterId] = '';
                             }
+                            this.likeCount.comment[comment.commentId] = false;
                         });
                     } else {
                         this.$message.error('获取评论失败：' + response.data.msg);
@@ -207,17 +265,19 @@ export default {
                                     this.users[reply.toId] = '';
                                 }
                             }
+                            this.likeCount.reply[reply.replyId] = false;
                         });
                     } else {
                         this.$message.error('获取回复失败：' + response.data.msg);
                     }
                     this.fetchNames(Object.keys(this.users));
+                    this.fetchLikes();
                 })
                 .catch(error => {
                     this.$message.error('获取回复失败：' + error);
                 });
         },
-        fetchNames(keys) {
+        async fetchNames(keys) {
             this.$http.get(`/user/names`, { params: { userIds: keys.join(',') } })
                 .then(response => {
                     if (response.data.code == 0) {
@@ -230,6 +290,39 @@ export default {
                 .catch(error => {
                     this.$message.error('获取用户名失败：' + error);
                 });
+        },
+        async fetchLikes() {
+            this.$http.get(`/like/Article/${this.$route.params.id}`)
+                .then(response => {
+                    if (response.data.code == 0 && response.data.data == true) {
+                        this.likeCount.article = true;
+                    }
+                })
+                .catch(error => {
+                    this.$message.error('获取点赞信息失败：' + error);
+                });
+            this.comments.forEach(comment => {
+                this.$http.get(`/like/Comment/${comment.commentId}`)
+                    .then(response => {
+                        if (response.data.code == 0 && response.data.data == true) {
+                            this.likeCount.comment[comment.commentId] = true;
+                        }
+                    })
+                    .catch(error => {
+                        this.$message.error('获取点赞信息失败：' + error);
+                    });
+            });
+            this.replies.forEach(reply => {
+                this.$http.get(`/like/Reply/${reply.replyId}`)
+                    .then(response => {
+                        if (response.data.code == 0 && response.data.data == true) {
+                            this.likeCount.reply[reply.replyId] = true;
+                        }
+                    })
+                    .catch(error => {
+                        this.$message.error('获取点赞信息失败：' + error);
+                    });
+            });
         }
     }
 }
@@ -251,5 +344,9 @@ export default {
 .tag {
     display: inline;
     margin-right: 5px;
+}
+.like {
+    cursor: pointer;
+    display: inline-block;
 }
 </style>
