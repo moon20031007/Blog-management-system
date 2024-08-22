@@ -66,4 +66,14 @@ public class ArticleController {
             return Result.error(ResultCode.ERROR);
         }
     }
+
+    @GetMapping("/home")
+    public Result home() {
+        try {
+            List<Article> homeArticles = articleService.home();
+            return Result.success(homeArticles);
+        } catch (Exception e) {
+            return Result.error(ResultCode.ERROR);
+        }
+    }
 }

@@ -51,7 +51,7 @@ export default {
             this.$http.get('/tag/hot')
                 .then(response => {
                     if (response.data.code == 0) {
-                        this.hotTags = response.data.data;                    
+                        this.hotTags = response.data.data;
                     } else {
                         this.$message.error('获取最热标签失败：' + response.data.msg);
                     }
@@ -64,7 +64,7 @@ export default {
             this.$http.get('/article/hot')
                 .then(response => {
                     if (response.data.code == 0) {
-                        this.hotArticles = response.data.data;                    
+                        this.hotArticles = response.data.data;
                     } else {
                         this.$message.error('获取最热文章失败：' + response.data.msg);
                     }
@@ -77,7 +77,7 @@ export default {
             this.$http.get('/article/latest')
                 .then(response => {
                     if (response.data.code == 0) {
-                        this.latestArticles = response.data.data;                    
+                        this.latestArticles = response.data.data;
                     } else {
                         this.$message.error('获取最新文章失败：' + response.data.msg);
                     }

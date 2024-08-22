@@ -13,4 +13,6 @@ public interface ArticleService {
     List<Article> hot();
 
     List<Article> latest();
+
+    List<Article> home();
 }

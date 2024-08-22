@@ -44,7 +44,7 @@ export default {
                             if (!this.users[article.authorId]) {
                                 this.users[article.authorId] = '';
                             }
-                        })
+                        });
                     } else {
                         this.$message.error('获取文章失败：' + response.data.msg);
                     }

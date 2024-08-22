@@ -8,6 +8,7 @@ import com.blog.util.currentUser.GetCurrentID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -45,5 +46,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<Article> latest() {
         return articleMapper.latestarticles();
+    }
+
+    @Override
+    public List<Article> home() {
+        return articleMapper.homearticles();
     }
 }

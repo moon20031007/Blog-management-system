@@ -27,4 +27,6 @@ public interface ArticleMapper {
     List<Article> hotarticles();
 
     List<Article> latestarticles();
+
+    List<Article> homearticles();
 }
