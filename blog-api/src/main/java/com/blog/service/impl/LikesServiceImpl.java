@@ -1,13 +1,7 @@
 package com.blog.service.impl;
 
-import com.blog.mapper.ArticleMapper;
-import com.blog.mapper.CommentMapper;
-import com.blog.mapper.LikesMapper;
-import com.blog.mapper.ReplyMapper;
-import com.blog.pojo.Article;
-import com.blog.pojo.Comment;
-import com.blog.pojo.Likes;
-import com.blog.pojo.Reply;
+import com.blog.mapper.*;
+import com.blog.pojo.*;
 import com.blog.service.LikesService;
 import com.blog.util.Enums.LikeableEnum;
 import com.blog.util.Interfaces.Likable;
@@ -36,6 +30,8 @@ public class LikesServiceImpl implements LikesService {
     private CommentMapper commentMapper;
     @Autowired
     private ReplyMapper replyMapper;
+    @Autowired
+    private LmessageMapper lmessageMapper;
 
     @Override
     public Result likeALikable(Integer userId, Integer likeableId, LikeableEnum likeableType) {
@@ -58,6 +54,10 @@ public class LikesServiceImpl implements LikesService {
                     count = likable.beliked();
                     replyMapper.updateByPrimaryKeySelective((Reply)likable);
                     break;
+                case Lmessage:
+                    likable = lmessageMapper.selectByPrimaryKey(Long.valueOf(likeableId));
+                    count = likable.beliked();
+                    lmessageMapper.updateByPrimaryKeySelective((Lmessage)likable);
             }
             if (likable == null){
                 return Result.error(ResultCode.LIKABLE_NOT_EXIST);
@@ -94,6 +94,10 @@ public class LikesServiceImpl implements LikesService {
                     count = likable.unliked();
                     replyMapper.updateByPrimaryKeySelective((Reply)likable);
                     break;
+                case Lmessage:
+                    likable = lmessageMapper.selectByPrimaryKey(Long.valueOf(likeableId));
+                    count = likable.unliked();
+                    lmessageMapper.updateByPrimaryKeySelective((Lmessage)likable);
             }
             if (likable == null){
                 return Result.error(ResultCode.LIKABLE_NOT_EXIST);
@@ -107,9 +111,9 @@ public class LikesServiceImpl implements LikesService {
             }
             return Result.success();
 
-        }catch (RuntimeException e){
+        } catch (RuntimeException e){
             return Result.error(ResultCode.USER_NOT_EXIST);
-        }catch (Exception e){
+        } catch (Exception e){
             return Result.error(ResultCode.ERROR);
         }
     }

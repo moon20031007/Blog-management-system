@@ -104,12 +104,10 @@ export default {
         };
     },
     async created() {
-        await Promise.all
         await this.fetchArticle();
         await this.fetchTags();
         await this.fetchComments();
         await this.fetchReplies();
-        this.$forceUpdate();
     },
     methods: {
         findReplies(id) {
