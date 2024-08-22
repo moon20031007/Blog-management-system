@@ -3,7 +3,7 @@
         <my-nav></my-nav>
         <h1>{{ this.Tag.tagName }}</h1>
         <h1>{{ this.Tag.articleCount }}</h1>
-        <my-art-list :articles="this.Articles"></my-art-list>
+        <my-art-list :key="articleKey" :articles="this.Articles" :users="this.users"></my-art-list>
     </div>
 </template>
 
@@ -12,7 +12,9 @@ export default {
     data() {
         return {
             Tag: {},
-            Articles: []
+            Articles: [],
+            users: {},
+            articleKey: 0
         }
     },
     async created() {
@@ -38,12 +40,33 @@ export default {
                 .then(response => {
                     if (response.data.code == 0) {
                         this.Articles = response.data.data;
+                        this.Articles.forEach(article => {
+                            if (!this.users[article.authorId]) {
+                                this.users[article.authorId] = '';
+                            }
+                        })
                     } else {
-                        this.$message.error('获取标签失败：' + response.data.msg);
+                        this.$message.error('获取文章失败：' + response.data.msg);
+                    }
+                    this.fetchNames(Object.keys(this.users));
+                })
+                .catch(error => {
+                    this.$message.error('获取文章失败：' + error);
+                });
+        },
+        async fetchNames(keys) {
+            let userIdsParam = keys.length == 1 ? keys[0] : keys.join(',');
+            this.$http.get(`/user/names`, { params: { userIds: userIdsParam } })
+                .then(response => {
+                    if (response.data.code == 0) {
+                        response.data.data.forEach(user => this.users[user.accountId.toString()] = user.nickname);
+                        this.articleKey++;
+                    } else {
+                        this.$message.error('获取用户名失败：' + response.data.msg);
                     }
                 })
                 .catch(error => {
-                    this.$message.error('获取标签失败：' + error);
+                    this.$message.error('获取用户名失败：' + error);
                 });
         }
     }

@@ -278,7 +278,8 @@ export default {
                 });
         },
         async fetchNames(keys) {
-            this.$http.get(`/user/names`, { params: { userIds: keys.join(',') } })
+            let userIdsParam = keys.length == 1 ? keys[0] : keys.join(',');
+            this.$http.get(`/user/names`, { params: { userIds: userIdsParam } })
                 .then(response => {
                     if (response.data.code == 0) {
                         response.data.data.forEach(user => this.users[user.accountId.toString()] = user.nickname);
@@ -306,6 +307,7 @@ export default {
                     .then(response => {
                         if (response.data.code == 0 && response.data.data == true) {
                             this.likeCount.comment[comment.commentId] = true;
+                            this.commentsKey++;
                         }
                     })
                     .catch(error => {

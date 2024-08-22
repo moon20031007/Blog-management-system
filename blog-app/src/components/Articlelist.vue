@@ -3,7 +3,7 @@
         <article v-for="article in articles" :key="article.id" class="article-card">
             <header>
                 <h2 @click="viewArticle(article.articleId)" class="clickable-title">{{ article.title }}</h2>
-                <p class="meta">By {{ article.authorId }} on {{ $formatTime(article.publishTime) }}</p>
+                <p class="meta">By {{ users[article.authorId] }} on {{ $formatTime(article.publishTime) }}</p>
             </header>
             <section>
                 <span><i class="el-icon-view">{{ article.readCount }}</i></span>
@@ -20,6 +20,10 @@ export default {
     props: {
         articles: {
             type: Array,
+            required: true
+        },
+        users: {
+            type: Object,
             required: true
         }
     },

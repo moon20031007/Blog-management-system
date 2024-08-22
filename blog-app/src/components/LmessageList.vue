@@ -1,11 +1,12 @@
 <template>
     <div class="lmessage-list">
         <p>已有留言共{{ lmessages.length }}条</p>
-        <main>
+        <main :key="lmessageKey">
             <article v-for="lmessage in lmessages" :key="lmessage.lmessageId">
                 <div class="lmessage-card">
                     <header>
-                        <p class="meta">By 用户{{ lmessage.commenterId }} on {{ $formatTime(lmessage.leaveTime) }}</p>
+                        <p class="meta">By {{ users[lmessage.commenterId] }} on {{ $formatTime(lmessage.leaveTime) }}
+                        </p>
                     </header>
                     <section>
                         <p>{{ lmessage.content }}</p>
@@ -21,7 +22,9 @@ export default {
     name: 'MyLmessageList',
     data() {
         return {
-            lmessages: []
+            lmessages: [],
+            users: {},
+            lmessageKey: 0
         }
     },
     async created() {
@@ -32,13 +35,34 @@ export default {
             this.$http.get('/lmessage/list')
                 .then(response => {
                     if (response.data.code == 0) {
-                        this.lmessages = response.data.data;                    
+                        this.lmessages = response.data.data;
+                        this.lmessages.forEach(lmessage => {
+                            if (!this.users[lmessage.commenterId]) {
+                                this.users[lmessage.commenterId] = '';
+                            }
+                        });
                     } else {
                         this.$message.error('获取留言失败：' + response.data.msg);
                     }
+                    this.fetchNames(Object.keys(this.users));
                 })
                 .catch(error => {
                     this.$message.error('获取留言失败：' + error);
+                });
+        },
+        async fetchNames(keys) {
+            let userIdsParam = keys.length == 1 ? keys[0] : keys.join(',');
+            this.$http.get(`/user/names`, { params: { userIds: userIdsParam } })
+                .then(response => {
+                    if (response.data.code == 0) {
+                        response.data.data.forEach(user => this.users[user.accountId.toString()] = user.nickname);
+                        this.lmessageKey++;
+                    } else {
+                        this.$message.error('获取用户名失败：' + response.data.msg);
+                    }
+                })
+                .catch(error => {
+                    this.$message.error('获取用户名失败：' + error);
                 });
         }
     }
