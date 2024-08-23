@@ -6,7 +6,7 @@
             <article v-for="log in logs" :key="log.logId">
             <div class="log-card">
                 <header>
-                    <p class="meta">{{ log.time }}</p>
+                    <p class="meta">{{ $formatTime(log.time) }}</p>
                 </header>
                 <section>
                     <p>{{ log.content }}</p>
@@ -53,17 +53,24 @@ export default {
     flex-direction: column;
     gap: 1rem;
     margin:3rem;
-    border: 1px solid #ddd;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.log-card {
-    border: 1px solid #ddd;
+    
     padding: 1rem;
     border-radius: 0.5rem;
     
+}
+
+.log-card {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.log-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 article .meta {

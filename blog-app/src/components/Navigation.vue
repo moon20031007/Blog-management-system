@@ -1,7 +1,7 @@
 <template>
     <el-container>
-        <el-header>
-            <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+        <el-header style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background-color: white; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);">
+            <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" style="width: 100%;">
                 <el-menu-item index="1" style="margin-left: 13%;"><router-link to="/"><el-link>首页</el-link></router-link></el-menu-item>
                 <el-menu-item index="2"><router-link to="/tag"><el-link>标签</el-link></router-link></el-menu-item>
                 <el-menu-item index="3"><router-link to="/log"><el-link>日志</el-link></router-link></el-menu-item>
@@ -85,4 +85,5 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+</style>

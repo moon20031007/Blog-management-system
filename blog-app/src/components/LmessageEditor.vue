@@ -67,6 +67,7 @@ export default {
 
 <style>
 .Lmessage-card {
+    background-color: #f8f9fa;
     border: 1px solid #ddd;
     padding: 1rem;
     border-radius: 0.5rem;

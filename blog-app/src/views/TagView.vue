@@ -1,7 +1,8 @@
 <template>
     <div>
         <my-nav></my-nav>
-        <el-container class="centered-container">
+        <br>
+        <el-container class="centered-container" style="width: 80%; margin: 0 auto;">
             <el-main>
                 <el-row class="grid-row">
                     <el-col v-for="Tag in Tags" :key="Tag.tagId" :span="6">
@@ -64,7 +65,7 @@ export default {
 }
 
 .grid-item {
-    background-color: #f0f0f0;
+    background-color: #f8f9fa;
     border: 1px solid #ddd;
     padding: 20px;
     text-align: center;
@@ -74,5 +75,12 @@ export default {
     box-sizing: border-box;
     width: 100%;
     max-width: calc(100% - 20px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.grid-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 </style>

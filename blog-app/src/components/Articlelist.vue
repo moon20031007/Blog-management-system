@@ -1,13 +1,13 @@
 <template>
     <div class="article-list">
-        <article v-for="article in articles" :key="article.id" class="article-card">
+        <article v-for="article in articles" :key="article.id" @click="viewArticle(article.articleId)" class="article-card">
             <header>
-                <h2 @click="viewArticle(article.articleId)" class="clickable-title">{{ article.title }}</h2>
+                <h2 class="clickable-title">{{ article.title }}</h2>
                 <p class="meta">By {{ users[article.authorId] }} on {{ $formatTime(article.publishTime) }}</p>
             </header>
             <section>
-                <span><i class="el-icon-view">{{ article.readCount }}</i></span>
-                <span><i class="el-icon-chat-dot-round">{{ article.commentCount }}</i></span>
+                <span><i class="el-icon-view">{{ article.readCount }}</i></span>&nbsp;
+                <span><i class="el-icon-chat-dot-round">{{ article.commentCount }}</i></span>&nbsp;
                 <span><i class="el-icon-star-off">{{ article.likeCount }}</i></span>
             </section>
         </article>
@@ -43,10 +43,17 @@ export default {
 }
 
 .article-card {
-    border: 1px solid #ddd;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 article header {

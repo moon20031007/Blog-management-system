@@ -1,7 +1,7 @@
 <template>
-    <div style="border: 1px solid #dcdfe6; padding: 20px; border-radius: 4px; width: 50%; margin: 2% auto 0">
-        <el-form :model="accountForm" :rules="rules" ref="accountForm" label-width="100px">
-            <div class="botton-container"><el-button plain ><router-link to="/">回到首页</router-link></el-button></div>
+    <div style="border: 1px solid #dcdfe6; padding: 20px; border-radius: 20px; width: 50%; margin: 2% auto 0; background-color: white;">
+        <h1 style="color: #7f7f7f;">注册</h1>
+        <el-form :model="accountForm" :rules="rules" ref="accountForm" label-width="100px"> 
             <el-form-item label="用户名" prop="id">
                 <el-input v-model="accountForm.id"></el-input>
             </el-form-item>
@@ -38,11 +38,15 @@
                 <el-input type="textarea" v-model="accountForm.address"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button type="primary" @click="submitForm('accountForm')">立即创建</el-button>
-                <div class="link-container"><router-link to="/login" class="small-font-link" >已经有账号？去登陆</router-link></div>
+                <div style="text-align: center; margin-left: -15%;">
+                    <el-button type="primary" @click="submitForm('accountForm')" style="padding: 12px 40px; border-radius: 50px; font-size: 16px;">立即创建</el-button>
+                </div>
+                <div class="link-container">
+                    <router-link to="/" class="small-font-link" style="text-decoration: none; color: grey;">返回首页</router-link>
+                    <router-link to="/login" class="small-font-link" style="text-decoration: none; color: grey">已经有账号？去登陆</router-link>
+                </div>
             </el-form-item>
-        </el-form>
-        
+        </el-form> 
     </div>
 </template>
 
@@ -138,12 +142,11 @@ export default {
 </script>
 
 <style>
-.botton-container {
-  text-align: left; /* 将链接对齐到右边 */
-  margin-bottom: 20px; /* 与表单项之间的间距 */
-}
-
 .link-container {
-  text-align: right; /* 将链接对齐到右边 */
-  margin-bottom: 20px; /* 与表单项之间的间距 */
-}</style>
+    display: flex;
+    justify-content: center;
+    margin-left: -5%;
+    gap: 80px;
+    margin-top: 10px;
+}
+</style>

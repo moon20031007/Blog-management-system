@@ -11,15 +11,15 @@
 import ArticleWriteEditor from '@/components/ArticleWriteEditor.vue';
 
 export default {
-  components: {ArticleWriteEditor},
-    
+    components: { ArticleWriteEditor },
+
 }
 </script>
 
 <style>
 .input-container {
-  display: flex;
-  justify-content: center; /* 或者其他需要的布局 */
+    display: flex;
+    justify-content: center;
+    /* 或者其他需要的布局 */
 }
-
 </style>

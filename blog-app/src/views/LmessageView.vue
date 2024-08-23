@@ -1,6 +1,7 @@
 <template>
     <div>
         <my-nav></my-nav>
+        <br>
         <el-container>
             <el-header></el-header>
             <lmessage-editor></lmessage-editor>

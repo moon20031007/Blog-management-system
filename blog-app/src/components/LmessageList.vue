@@ -6,7 +6,7 @@
                 <div class="lmessage-card">
                     <header>
                         <div class="meta">
-                            By {{ users[lmessage.commenterId] }} on {{ $formatTime(lmessage.leaveTime) }}
+                            By {{ users[lmessage.commenterId] }} on {{ $formatTime(lmessage.leaveTime) }}&nbsp;
                             <div class="like" @click="putLike('Lmessage', lmessage.lmessageId)">
                                 <i v-if="likeCount[lmessage.lmessageId]" class="el-icon-star-on"></i>
                                 <i v-else class="el-icon-star-off"></i>
@@ -18,6 +18,7 @@
                         <p>{{ lmessage.content }}</p>
                     </section>
                 </div>
+                <br>
             </article>
         </main>
     </div>
@@ -115,6 +116,7 @@ export default {
 
 <style>
 .lmessage-list {
+    background-color: #f8f9fa;
     display: flex;
     flex-direction: column;
     gap: 1rem;

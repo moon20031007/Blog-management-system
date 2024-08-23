@@ -1,6 +1,8 @@
 <template>
     <div>
         <my-nav></my-nav>
+        <br>
+        <br>
         <el-container>
             <el-aside width="300px">
                 <my-asi-list></my-asi-list>

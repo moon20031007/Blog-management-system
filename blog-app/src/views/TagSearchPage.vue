@@ -1,8 +1,9 @@
 <template>
     <div>
         <my-nav></my-nav>
+        <br><br><br>
         <h1>{{ this.Tag.tagName }}</h1>
-        <h1>{{ this.Tag.articleCount }}</h1>
+        <h3>相关文章数量: {{ this.Tag.articleCount }}</h3>
         <my-art-list :key="articleKey" :articles="this.Articles" :users="this.users"></my-art-list>
     </div>
 </template>
@@ -55,6 +56,7 @@ export default {
                 });
         },
         async fetchNames(keys) {
+            if (keys.length == 0) {return;}
             let userIdsParam = keys.length == 1 ? keys[0] : keys.join(',');
             this.$http.get(`/user/names`, { params: { userIds: userIdsParam } })
                 .then(response => {
@@ -74,7 +76,8 @@ export default {
 </script>
 
 <style>
-h1 {
+h1,h3 {
     text-align: center;
+    color: aliceblue;
 }
 </style>

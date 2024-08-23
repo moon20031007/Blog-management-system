@@ -6,6 +6,7 @@ import com.blog.service.ArticleService;
 import com.blog.service.ArticleTagsService;
 import com.blog.util.result.Result;
 import com.blog.util.result.ResultCode;
+import org.apache.shiro.authc.AuthenticationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -42,6 +43,8 @@ public class ArticleController {
             Integer articleId = article.getArticleId();
             articleTagsService.saveArticleTags(articleId,tagIDs);
             return Result.success();
+        } catch (AuthenticationException e) {
+            return Result.error(ResultCode.USER_NOT_LOGGED_IN);
         } catch (Exception e) {
             return Result.error(ResultCode.ERROR);
         }

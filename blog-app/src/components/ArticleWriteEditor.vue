@@ -1,7 +1,10 @@
 <template>
-
     <div class="write-card">
-        <el-button plain size='small'><router-link to="/">回到首页</router-link></el-button>
+        <div class="header-buttons">
+            <el-button plain size='small' class="back-home-button">
+                <router-link to="/" style="text-decoration: none; color: black">回到首页</router-link>
+            </el-button>
+        </div>
         <el-form :model="messageForm" status-icon :rules="rules" ref="messageForm" class="demo-ruleForm">
 
             <el-form-item prop="title" class="input">
@@ -9,7 +12,7 @@
                 </el-input>
             </el-form-item>
 
-            <el-form-item prop="textarea" class="writeinput">
+            <el-form-item prop="textarea" class="write-input">
                 <el-input type="textarea" placeholder="请输入你的文章" :rows="20" v-model="messageForm.textarea"
                     maxlength="2000" show-word-limit>
                 </el-input>
@@ -17,7 +20,7 @@
 
             <el-form-item class="form-checkbox" prop="tag">
                 <el-checkbox-group v-model="messageForm.tag" :min="1">
-                    <el-checkbox v-for="city in cities" :label="city" :key="city">{{ city.tagName }}</el-checkbox>
+                    <el-checkbox v-for="city in cities" :label="city" :key="city" style="color: black;">{{ city.tagName }}</el-checkbox>
                 </el-checkbox-group>
             </el-form-item>
 
@@ -75,7 +78,7 @@ export default {
             this.$http.get('/tag/list')
                 .then(response => {
                     if (response.data.code == 0) {
-                        this.cities = response.data.data;                    
+                        this.cities = response.data.data;
                     } else {
                         this.$message.error('获取标签失败：' + response.data.msg);
                     }
@@ -98,7 +101,8 @@ export default {
                     this.$http.post('/article/add', form)
                         .then(response => {
                             if (response.data.code == 0) {
-                                this.$message.success('文章提交成功！');                            
+                                this.$message.success('文章提交成功！');
+                                this.$router.push('/');
                             } else {
                                 this.$message.error('文章提交失败：' + response.data.msg);
                             }
@@ -119,12 +123,13 @@ export default {
 </script>
 
 <style>
-.writecard {
+.write-card {
     display: flex;
-    justify-content: cneter;
+    justify-content: center;
+    position: relative;
 }
 
-.writeinput {
+.write-input {
     margin-bottom: 10px;
     margin-top: 1.5rem;
     width: 50rem;
@@ -151,5 +156,17 @@ export default {
     justify-content: flex-end;
     margin-top: 0;
 
+}
+
+.back-home-button {
+    position: absolute;
+    left: 0;
+    top: 0;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.demo-ruleForm {
+    margin-top: 40px;
 }
 </style>

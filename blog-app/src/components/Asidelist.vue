@@ -2,7 +2,7 @@
     <div>
         <aside class="sidebar">
             <section class="sidebar-section">
-                <h3>最热标签</h3>
+                <h3 class="h3-1">最热标签</h3>
                 <ul class="tags-list">
                     <li v-for="tag in hotTags" :key="tag">
                         <a :href="'/tag/' + tag.tagId">{{ tag.tagName }}</a>
@@ -11,7 +11,7 @@
             </section>
 
             <section class="sidebar-section">
-                <h3>最热文章</h3>
+                <h3 class="h3-1">最热文章</h3>
                 <ul class="articles-list">
                     <li v-for="article in hotArticles" :key="article.articleId">
                         <a :href="'/article/' + article.articleId">{{ article.title }}</a>
@@ -20,7 +20,7 @@
             </section>
 
             <section class="sidebar-section">
-                <h3>最新文章</h3>
+                <h3 class="h3-1">最新文章</h3>
                 <ul class="articles-list">
                     <li v-for="article in latestArticles" :key="article.articleId">
                         <a :href="'/article/' + article.articleId">{{ article.title }}</a>
@@ -97,6 +97,10 @@ export default {
     background-color: #f9f9f9;
     border-radius: 0.5rem;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
 }
 
 .sidebar-section {
@@ -120,13 +124,23 @@ export default {
     margin-bottom: 0.5rem;
 }
 
+.tags-list a,
 .articles-list a {
-    color: #007BFF;
+    color: black;
     text-decoration: none;
     cursor: pointer;
+    margin-left: 10px;
 }
 
+.tags-list a:hover,
 .articles-list a:hover {
-    text-decoration: underline;
+    color: #5492e3;
+}
+
+.h3-1 {
+    background-color: #75a6e5;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
 }
 </style>

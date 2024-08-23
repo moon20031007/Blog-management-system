@@ -1,17 +1,19 @@
 <template>
     <div>
         <my-nav></my-nav>
+        <br>
+        <br>
         <el-container>
             <el-aside width="300px"><my-asi-list></my-asi-list></el-aside>
             <el-main>
                 <article>
-                    <h2>{{ article.title }}</h2>
                     <el-card class="custom-card">
+                        <h2>{{ article.title }}</h2>
                         <div class="card-content">
-                            <i class="el-icon-user-solid"></i>{{ users[article.authorId] }}
-                            <i class="el-icon-upload"></i>{{ $formatTime(article.publishTime) }}
-                            <i class="el-icon-view"></i>{{ article.readCount }}
-                            <i class="el-icon-chat-line-round"></i>{{ article.commentCount }}
+                            <i class="el-icon-user-solid"></i>{{ users[article.authorId] }}&nbsp;
+                            <i class="el-icon-upload"></i>{{ $formatTime(article.publishTime) }}&nbsp;
+                            <i class="el-icon-view"></i>{{ article.readCount }}&nbsp;
+                            <i class="el-icon-chat-line-round"></i>{{ article.commentCount }}&nbsp;
                             <div class="like" @click="putLike('Article', article.articleId)">
                                 <i v-if="likeCount.article" class="el-icon-star-on"></i>
                                 <i v-else class="el-icon-star-off"></i>
@@ -24,11 +26,12 @@
                                 <el-link :href="`/tag/${tag.tagId}`"><el-tag>{{ tag.tagName }}</el-tag></el-link>
                             </div>
                         </div>
+                        <p>{{ article.content }}</p>
                     </el-card>
-                    <p>{{ article.content }}</p>
                 </article>
+                <br>
                 <el-card :key="commentsKey">
-                    <h3>评论区</h3>
+                    <h3 class="h3-1">评论区</h3>
                     <el-form :model="commentForm">
                         <el-input v-model="commentForm.content" type="textarea" autosize placeholder="请输入评论"
                             style="width: 85%;"></el-input>
@@ -38,12 +41,12 @@
                         <i class="el-icon-user-solid user">{{ users[comment.commenterId] }}</i><br>
                         {{ comment.content }}<br>
                         <small>
-                            <i class="el-icon-time"></i>{{ $formatTime(comment.commentTime) }}
+                            <i class="el-icon-time"></i>{{ $formatTime(comment.commentTime) }}&nbsp;
                             <div class="like" @click="putLike('Comment', comment.commentId)">
                                 <i v-if="likeCount.comment[comment.commentId]" class="el-icon-star-on"></i>
                                 <i v-else class="el-icon-star-off"></i>
                                 {{ comment.likeCount }}
-                            </div>
+                            </div>&nbsp;
                         </small>
                         <el-button type="text" @click="showReplyView(comment.commentId, 0, 0)"><i
                                 class="el-icon-chat-line-square">回复</i></el-button>
@@ -56,12 +59,12 @@
                                         <span class="user">@{{ users[reply.toId] }}</span>
                                     </template>
                                     {{ reply.content }}<br>
-                                    <i class="el-icon-time"></i>{{ $formatTime(reply.replyTime) }}
+                                    <i class="el-icon-time"></i>{{ $formatTime(reply.replyTime) }}&nbsp;
                                     <div class="like" @click="putLike('Reply', reply.replyId)">
                                         <i v-if="likeCount.reply[reply.replyId]" class="el-icon-star-on"></i>
                                         <i v-else class="el-icon-star-off"></i>
                                         {{ reply.likeCount }}
-                                    </div>
+                                    </div>&nbsp;
                                     <el-button type="text"
                                         @click="showReplyView(comment.commentId, 1, reply.replyId, reply.replierId)"><i
                                             class="el-icon-chat-line-square">回复</i></el-button><br>
@@ -348,5 +351,11 @@ export default {
 .like {
     cursor: pointer;
     display: inline-block;
+}
+.h3-1 {
+    background-color: #75a6e5;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
 }
 </style>

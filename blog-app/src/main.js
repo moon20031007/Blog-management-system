@@ -4,6 +4,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import App from './App.vue'
 import router from './router'
 import http from './http';
+import './assets/css/global.css'
 
 import MyNavigation from './components/Navigation.vue'
 import MyArticleList from './components/Articlelist.vue'

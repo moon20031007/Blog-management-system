@@ -33,6 +33,7 @@
         article_id, title
         from article
         order by read_count desc
+        limit 5
     </select>
 
     <select id="latestarticles" resultType="com.blog.pojo.Article">
@@ -40,6 +41,7 @@
         article_id, title
         from article
         order by publish_time desc
+        limit 5
     </select>
 
     <select id="homearticles" resultType="com.blog.pojo.Article">
@@ -47,6 +49,7 @@
         <include refid="Base_Column_List"/>
         from article
         order by (read_count / 10 + like_count + comment_count) desc
+        limit 10
     </select>
 
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
