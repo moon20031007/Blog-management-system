@@ -9,7 +9,7 @@
                     <p class="meta">{{ $formatTime(log.time) }}</p>
                 </header>
                 <section>
-                    <p>{{ log.content }}</p>
+                    <p class="content">{{ log.content }}</p>
                 </section>
             </div>
           </article>

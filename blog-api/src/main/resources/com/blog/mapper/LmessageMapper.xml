@@ -59,6 +59,7 @@
                 <if test="content != null">#{content,jdbcType=VARCHAR},</if>
         </trim>
     </insert>
+
     <update id="updateByPrimaryKeySelective" parameterType="com.blog.pojo.Lmessage">
         update lmessage
         <set>
@@ -77,6 +78,7 @@
         </set>
         where lmessage_id = #{lmessageId,jdbcType=INTEGER}
     </update>
+
     <update id="updateByPrimaryKey" parameterType="com.blog.pojo.Lmessage">
         update lmessage
         set 

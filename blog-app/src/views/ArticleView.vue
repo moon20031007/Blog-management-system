@@ -26,7 +26,7 @@
                                 <el-link :href="`/tag/${tag.tagId}`"><el-tag>{{ tag.tagName }}</el-tag></el-link>
                             </div>
                         </div>
-                        <p>{{ article.content }}</p>
+                        <p class="content">{{ article.content }}</p>
                     </el-card>
                 </article>
                 <br>
@@ -39,7 +39,7 @@
                     </el-form>
                     <div v-for="comment in comments" :key="comment">
                         <i class="el-icon-user-solid user">{{ users[comment.commenterId] }}</i><br>
-                        {{ comment.content }}<br>
+                        <div class="content">{{ comment.content }}</div>
                         <small>
                             <i class="el-icon-time"></i>{{ $formatTime(comment.commentTime) }}&nbsp;
                             <div class="like" @click="putLike('Comment', comment.commentId)">
@@ -53,7 +53,7 @@
                         <el-collapse v-model="activeNames">
                             <el-collapse-item v-if="findReplies(comment.commentId).length"
                                 :title="activeNames.includes(comment.commentId) ? '收起' : '展开'" :name=comment.commentId>
-                                <div v-for="reply in findReplies(comment.commentId)" :key="reply">
+                                <div class="content" v-for="reply in findReplies(comment.commentId)" :key="reply">
                                     <i class="el-icon-user-solid user">{{ users[reply.replierId] }}：</i>
                                     <template v-if="reply.replyType == 1">
                                         <span class="user">@{{ users[reply.toId] }}</span>

@@ -15,7 +15,7 @@
                         </div>
                     </header>
                     <section>
-                        <p>{{ lmessage.content }}</p>
+                        <p class="content">{{ lmessage.content }}</p>
                     </section>
                 </div>
                 <br>

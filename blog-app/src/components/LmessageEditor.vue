@@ -2,7 +2,8 @@
     <div class="Lmessage-card">
         <el-form :model="messageForm" status-icon :rules="rules" ref="messageForm" class="demo-ruleForm">
             <el-form-item prop="textarea" class="input">
-                <el-input type="textarea" placeholder="请输入你的留言" :rows="10" v-model="messageForm.textarea" maxlength="100" show-word-limit>
+                <el-input type="textarea" placeholder="请输入你的留言" :rows="10" v-model="messageForm.textarea"
+                    maxlength="100" show-word-limit>
                 </el-input>
             </el-form-item>
             <el-form-item class="form-buttons">
@@ -39,12 +40,14 @@ export default {
     methods: {
         submitForm(formName) {
             this.$refs[formName].validate((valid) => {
-                const form = { commenterId: 1, context: this.messageForm.textarea };
+                const form = { content: this.messageForm.textarea };
                 if (valid) {
                     this.$http.post('/lmessage/add', form)
                         .then(response => {
                             if (response.data.code == 0) {
-                                this.$message.success('留言提交成功！');                            
+                                this.$message.success('留言提交成功！');
+                                this.messageForm.textarea = '';
+                                setTimeout(() => location.reload(), 3000);
                             } else {
                                 this.$message.error('留言提交失败：' + response.data.msg);
                             }

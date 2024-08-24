@@ -97,10 +97,11 @@ export default {
     background-color: #f9f9f9;
     border-radius: 0.5rem;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 0;
     transform: translateY(-50%);
+    z-index: 1000; /* 确保侧栏在其他元素上方 */
 }
 
 .sidebar-section {

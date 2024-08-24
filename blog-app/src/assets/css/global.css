@@ -2,3 +2,6 @@ body {
     background: url('../images/background1.jpg') no-repeat center center fixed;
     background-size: cover;
 }
+.content {
+    white-space: pre-wrap; /* 或者使用 'pre-line' */
+}

@@ -6,6 +6,7 @@ import com.blog.service.LmessageService;
 import com.blog.util.result.Result;
 import com.blog.util.result.ResultCode;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +35,9 @@ public class LmessageController {
         try{
             lmessageService.insert(lmessage);
             return Result.success();
-        }catch (Exception e){
+        } catch (AuthenticationException e) {
+            return Result.error(ResultCode.USER_NOT_LOGGED_IN);
+        } catch (Exception e) {
             return Result.error(ResultCode.ERROR);
         }
     }

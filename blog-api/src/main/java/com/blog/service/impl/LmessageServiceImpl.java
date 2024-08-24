@@ -30,10 +30,10 @@ public class LmessageServiceImpl implements LmessageService {
     AccountService accountService;
 
     @Override
-    public Result insert(Lmessage lmessage) throws Exception {
+    public void insert(Lmessage lmessage) throws Exception {
         Integer authenticatedUserId = GetCurrentID.getAuthenticatedUserId(accountService);
         lmessage.setCommenterId(authenticatedUserId);
-        return Result.success();
+        lmessageMapper.insertSelective(lmessage);
     }
 
     @Override

@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface LmessageService {
 
-    Result insert(Lmessage lmessage) throws Exception;
+    void insert(Lmessage lmessage) throws Exception;
 
     List<Lmessage> getAll();
 }
