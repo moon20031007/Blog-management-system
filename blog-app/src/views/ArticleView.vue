@@ -42,14 +42,15 @@
                         <div class="content" style="margin-left: 15px;">{{ comment.content }}</div>
                         <small>
                             <img :src="require('@/assets/images/time.png')" class="time-view-image">{{ $formatTime(comment.commentTime) }}&nbsp;
-                            <div class="like" @click="putLike('Comment', comment.commentId)">
+                            <div class="like" @click="putLike('Comment', comment.commentId)" style="margin-right: 0px;">
                                 <img v-if="likeCount.comment[comment.commentId]" :src="require('@/assets/images/liked.png')" class="like-image">
                                 <img v-else :src="require('@/assets/images/like.png')" class="like-image">
                                 {{ comment.likeCount }}
-                            </div>&nbsp;
+                            </div>
+                            <el-button type="text" @click="showReplyView(comment.commentId, 0, 0)">
+                                <i class="el-icon-chat-line-square">回复</i>
+                            </el-button>
                         </small>
-                        <el-button type="text" @click="showReplyView(comment.commentId, 0, 0)"><i
-                                class="el-icon-chat-line-square">回复</i></el-button>
                         <el-collapse v-model="activeNames">
                             <el-collapse-item v-if="findReplies(comment.commentId).length"
                                 :title="activeNames.includes(comment.commentId) ? '收起' : '展开'" :name=comment.commentId>
@@ -374,8 +375,8 @@ export default {
     vertical-align: middle; /* 确保图片与文本垂直对齐 */
 }
 .like-image {
-    width: 9%; /* 调整宽度 */
-    height: 9%; /* 调整高度 */
+    width: 40%; /* 调整宽度 */
+    height: 40%; /* 调整高度 */
     margin-right: -6px; /* 调整与右边文本的间距 */
     margin-bottom: 3px; /* 向下移动图片 */
     vertical-align: middle; /* 确保图片与文本垂直对齐 */
