@@ -1,5 +1,7 @@
 <template>
     <div class="Lmessage-card">
+        <h1 style="text-align: center; color: #5492e3;">欢迎您在此留下宝贵的意见！</h1>
+        <p style="text-align: center; color: #5492e3;">您的有用建议都会被我们采纳用于完善网站！</p>
         <el-form :model="messageForm" status-icon :rules="rules" ref="messageForm" class="demo-ruleForm">
             <el-form-item prop="textarea" class="input">
                 <el-input type="textarea" placeholder="请输入你的留言" :rows="10" v-model="messageForm.textarea"
@@ -70,7 +72,7 @@ export default {
 
 <style>
 .Lmessage-card {
-    background-color: #f8f9fa;
+    background-color: white;
     border: 1px solid #ddd;
     padding: 1rem;
     border-radius: 0.5rem;

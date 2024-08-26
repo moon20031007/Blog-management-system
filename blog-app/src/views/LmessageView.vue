@@ -7,6 +7,7 @@
             <lmessage-editor></lmessage-editor>
             <lmessage-list></lmessage-list>
         </el-container>
+        <el-backtop></el-backtop>
     </div>
 </template>
 

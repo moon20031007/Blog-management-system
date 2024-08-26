@@ -8,8 +8,8 @@
                         <div class="meta">
                             By {{ users[lmessage.commenterId] }} on {{ $formatTime(lmessage.leaveTime) }}&nbsp;
                             <div class="like" @click="putLike('Lmessage', lmessage.lmessageId)">
-                                <i v-if="likeCount[lmessage.lmessageId]" class="el-icon-star-on"></i>
-                                <i v-else class="el-icon-star-off"></i>
+                                <img v-if="likeCount[lmessage.lmessageId]" :src="require('@/assets/images/liked.png')" class="like-image">
+                                <img v-else :src="require('@/assets/images/like.png')" class="like-image">
                                 {{ lmessage.likeCount }}
                             </div>
                         </div>

@@ -1,12 +1,7 @@
 <template>
     <div class="write-card">
-        <div class="header-buttons">
-            <el-button plain size='small' class="back-home-button">
-                <router-link to="/" style="text-decoration: none; color: black">回到首页</router-link>
-            </el-button>
-        </div>
         <el-form :model="messageForm" status-icon :rules="rules" ref="messageForm" class="demo-ruleForm">
-
+            <h1 style="color: white;">开始你的创作</h1>
             <el-form-item prop="title" class="input">
                 <el-input class="title" type="text" placeholder="标题" v-model="messageForm.title" maxlength="15">
                 </el-input>
@@ -24,7 +19,10 @@
                 </el-checkbox-group>
             </el-form-item>
 
-            <el-form-item class="form-buttons">
+            <el-form-item class="form-buttons" style="display: flex;">
+                <el-button size='small' style="margin-right: 600px;">
+                    <router-link to="/" style="text-decoration: none; color: black;">回到首页</router-link>
+                </el-button>
                 <el-button type="primary" @click="submitForm('messageForm')" size='small'>提交</el-button>
                 <el-button @click="resetForm('messageForm')" size='small'>重置</el-button>
             </el-form-item>

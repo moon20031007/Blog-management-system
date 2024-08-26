@@ -1,20 +1,23 @@
 <template>
     <div>
         <my-nav></my-nav>
+        <br><br><br>
+        <h1 style="text-align: center; color: #f8f9fa;">更新日志</h1>
         <div class="log-list">
-        <main>
-            <article v-for="log in logs" :key="log.logId">
-            <div class="log-card">
-                <header>
-                    <p class="meta">{{ $formatTime(log.time) }}</p>
-                </header>
-                <section>
-                    <p class="content">{{ log.content }}</p>
-                </section>
-            </div>
-          </article>
-        </main>
-    </div>
+            <main>
+                <article v-for="log in logs" :key="log.logId">
+                    <div class="log-card">
+                        <header>
+                            <p class="meta">{{ $formatTime(log.time) }}</p>
+                        </header>
+                        <section>
+                            <p class="content">{{ log.content }}</p>
+                        </section>
+                    </div>
+                </article>
+            </main>
+        </div>
+        <el-backtop></el-backtop>
     </div>
 </template>
 

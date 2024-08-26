@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.mapper.LmessageMapper">
+
+    <resultMap id="BaseResultMap" type="com.blog.pojo.Lmessage">
+            <id property="lmessageId" column="lmessage_id" jdbcType="INTEGER"/>
+            <result property="commenterId" column="commenter_id" jdbcType="INTEGER"/>
+            <result property="leaveTime" column="leave_time" jdbcType="TIMESTAMP"/>
+            <result property="likeCount" column="like_count" jdbcType="INTEGER"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        lmessage_id,commenter_id,leave_time,
+        like_count,content
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from lmessage
+        where  lmessage_id = #{lmessageId,jdbcType=INTEGER} 
+    </select>
+    <select id="list" resultType="com.blog.pojo.Lmessage">
+        select
+        <include refid="Base_Column_List"/>
+        from lmessage
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from lmessage
+        where  lmessage_id = #{lmessageId,jdbcType=INTEGER} 
+    </delete>
+
+    <insert id="insert" keyColumn="lmessage_id" keyProperty="lmessageId" parameterType="com.blog.pojo.Lmessage" useGeneratedKeys="true">
+        insert into lmessage
+        ( lmessage_id,commenter_id,leave_time
+        ,like_count,content)
+        values (#{lmessageId,jdbcType=INTEGER},#{commenterId,jdbcType=INTEGER},#{leaveTime,jdbcType=TIMESTAMP}
+        ,#{likeCount,jdbcType=INTEGER},#{content,jdbcType=VARCHAR})
+    </insert>
+
+    <insert id="insertSelective" keyColumn="lmessage_id" keyProperty="lmessageId" parameterType="com.blog.pojo.Lmessage" useGeneratedKeys="true">
+        insert into lmessage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="lmessageId != null">lmessage_id,</if>
+                <if test="commenterId != null">commenter_id,</if>
+                <if test="leaveTime != null">leave_time,</if>
+                <if test="likeCount != null">like_count,</if>
+                <if test="content != null">content,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="lmessageId != null">#{lmessageId,jdbcType=INTEGER},</if>
+                <if test="commenterId != null">#{commenterId,jdbcType=INTEGER},</if>
+                <if test="leaveTime != null">#{leaveTime,jdbcType=TIMESTAMP},</if>
+                <if test="likeCount != null">#{likeCount,jdbcType=INTEGER},</if>
+                <if test="content != null">#{content,jdbcType=VARCHAR},</if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.blog.pojo.Lmessage">
+        update lmessage
+        <set>
+            <if test="commenterId != null">
+                commenter_id = #{commenterId,jdbcType=INTEGER},
+            </if>
+            <if test="leaveTime != null">
+                leave_time = #{leaveTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="likeCount != null">
+                like_count = #{likeCount,jdbcType=INTEGER},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where lmessage_id = #{lmessageId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.blog.pojo.Lmessage">
+        update lmessage
+        set 
+            commenter_id =  #{commenterId,jdbcType=INTEGER},
+            leave_time =  #{leaveTime,jdbcType=TIMESTAMP},
+            like_count =  #{likeCount,jdbcType=INTEGER},
+            content = #{content,jdbcType=VARCHAR}
+        where lmessage_id = #{lmessageId,jdbcType=INTEGER}
+    </update>
+</mapper>

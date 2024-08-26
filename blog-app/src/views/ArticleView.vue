@@ -10,13 +10,13 @@
                     <el-card class="custom-card">
                         <h2>{{ article.title }}</h2>
                         <div class="card-content">
-                            <i class="el-icon-user-solid"></i>{{ users[article.authorId] }}&nbsp;
-                            <i class="el-icon-upload"></i>{{ $formatTime(article.publishTime) }}&nbsp;
-                            <i class="el-icon-view"></i>{{ article.readCount }}&nbsp;
+                            <img :src="require('@/assets/images/user.png')" class="user-image">{{ users[article.authorId] }}&nbsp;
+                            <img :src="require('@/assets/images/time.png')" class="time-view-image">{{ $formatTime(article.publishTime) }}&nbsp;
+                            <img :src="require('@/assets/images/view.png')" class="time-view-image">{{ article.readCount }}&nbsp;
                             <i class="el-icon-chat-line-round"></i>{{ article.commentCount }}&nbsp;
                             <div class="like" @click="putLike('Article', article.articleId)">
-                                <i v-if="likeCount.article" class="el-icon-star-on"></i>
-                                <i v-else class="el-icon-star-off"></i>
+                                <img v-if="likeCount.article" :src="require('@/assets/images/liked.png')" alt="Liked" class="like-image">
+                                <img v-else :src="require('@/assets/images/like.png')" alt="Like" class="like-image">
                                 {{ article.likeCount }}
                             </div>
                         </div>
@@ -38,13 +38,13 @@
                         <el-button type="primary" @click="submitComment()">提交</el-button>
                     </el-form>
                     <div v-for="comment in comments" :key="comment">
-                        <i class="el-icon-user-solid user">{{ users[comment.commenterId] }}</i><br>
-                        <div class="content">{{ comment.content }}</div>
+                        <img :src="require('@/assets/images/user.png')" class="user-image">{{ users[comment.commenterId] }}<br>
+                        <div class="content" style="margin-left: 15px;">{{ comment.content }}</div>
                         <small>
-                            <i class="el-icon-time"></i>{{ $formatTime(comment.commentTime) }}&nbsp;
+                            <img :src="require('@/assets/images/time.png')" class="time-view-image">{{ $formatTime(comment.commentTime) }}&nbsp;
                             <div class="like" @click="putLike('Comment', comment.commentId)">
-                                <i v-if="likeCount.comment[comment.commentId]" class="el-icon-star-on"></i>
-                                <i v-else class="el-icon-star-off"></i>
+                                <img v-if="likeCount.comment[comment.commentId]" :src="require('@/assets/images/liked.png')" class="like-image">
+                                <img v-else :src="require('@/assets/images/like.png')" class="like-image">
                                 {{ comment.likeCount }}
                             </div>&nbsp;
                         </small>
@@ -54,20 +54,21 @@
                             <el-collapse-item v-if="findReplies(comment.commentId).length"
                                 :title="activeNames.includes(comment.commentId) ? '收起' : '展开'" :name=comment.commentId>
                                 <div class="content" v-for="reply in findReplies(comment.commentId)" :key="reply">
-                                    <i class="el-icon-user-solid user">{{ users[reply.replierId] }}：</i>
+                                    <img :src="require('@/assets/images/user.png')" class="user-image">{{ users[reply.replierId] }}: 
                                     <template v-if="reply.replyType == 1">
-                                        <span class="user">@{{ users[reply.toId] }}</span>
+                                        <span class="user">@{{ users[reply.toId] }} </span>
                                     </template>
-                                    {{ reply.content }}<br>
-                                    <i class="el-icon-time"></i>{{ $formatTime(reply.replyTime) }}&nbsp;
+                                    <i style="font-style: normal;">{{ reply.content }}</i>
+                                    <br>
+                                    <img :src="require('@/assets/images/time.png')" class="time-view-image">{{ $formatTime(reply.replyTime) }}&nbsp;
                                     <div class="like" @click="putLike('Reply', reply.replyId)">
-                                        <i v-if="likeCount.reply[reply.replyId]" class="el-icon-star-on"></i>
-                                        <i v-else class="el-icon-star-off"></i>
+                                        <img v-if="likeCount.reply[reply.replyId]" :src="require('@/assets/images/liked.png')" class="like-image">
+                                        <img v-else :src="require('@/assets/images/like.png')" class="like-image">
                                         {{ reply.likeCount }}
                                     </div>&nbsp;
-                                    <el-button type="text"
-                                        @click="showReplyView(comment.commentId, 1, reply.replyId, reply.replierId)"><i
-                                            class="el-icon-chat-line-square">回复</i></el-button><br>
+                                    <el-button type="text" @click="showReplyView(comment.commentId, 1, reply.replyId, reply.replierId)"><i class="el-icon-chat-line-square">回复</i></el-button>
+                                    <br>
+                                    <br>
                                 </div>
                             </el-collapse-item>
                             <el-form v-show="isReplyFormVisible.includes(comment.commentId)" ref="replyForm"
@@ -82,8 +83,10 @@
                 </el-card>
             </el-main>
         </el-container>
+        <el-backtop></el-backtop>
     </div>
 </template>
+
 
 <script>
 export default {
@@ -332,10 +335,6 @@ export default {
 </script>
 
 <style>
-.user {
-    color: slateblue;
-}
-
 .custom-card {
     padding: 0px;
 }
@@ -357,5 +356,28 @@ export default {
     color: white;
     padding: 0.5rem 1rem;
     border-radius: 0.25rem;
+}
+.user-image{
+    cursor: pointer;
+    width: 1.7%; /* 调整宽度 */
+    height: 1.7%; /* 调整高度 */
+    margin-right: 0px; /* 调整与右边文本的间距 */
+    margin-bottom: 2px; /* 向下移动图片 */
+    vertical-align: middle; /* 确保图片与文本垂直对齐 */
+}
+.time-view-image {
+    cursor: pointer;
+    width: 1.7%; /* 调整宽度 */
+    height: 1.7%; /* 调整高度 */
+    margin-right: -2px; /* 调整与右边文本的间距 */
+    margin-bottom: 2px; /* 向下移动图片 */
+    vertical-align: middle; /* 确保图片与文本垂直对齐 */
+}
+.like-image {
+    width: 9%; /* 调整宽度 */
+    height: 9%; /* 调整高度 */
+    margin-right: -6px; /* 调整与右边文本的间距 */
+    margin-bottom: 3px; /* 向下移动图片 */
+    vertical-align: middle; /* 确保图片与文本垂直对齐 */
 }
 </style>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.mapper.LogMapper">
+
+    <resultMap id="BaseResultMap" type="com.blog.pojo.Log">
+            <id property="logId" column="log_id" jdbcType="INTEGER"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="time" column="time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        log_id,content,time
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from log
+        where  log_id = #{logId,jdbcType=INTEGER} 
+    </select>
+
+    <select id="all" resultType="com.blog.pojo.Log">
+        select
+        <include refid="Base_Column_List"/>
+        from log
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from log
+        where  log_id = #{logId,jdbcType=INTEGER} 
+    </delete>
+    <insert id="insert" keyColumn="log_id" keyProperty="logId" parameterType="com.blog.pojo.Log" useGeneratedKeys="true">
+        insert into log
+        ( log_id,content,time
+        )
+        values (#{logId,jdbcType=INTEGER},#{content,jdbcType=VARCHAR},#{time,jdbcType=TIMESTAMP}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="log_id" keyProperty="logId" parameterType="com.blog.pojo.Log" useGeneratedKeys="true">
+        insert into log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="logId != null">log_id,</if>
+                <if test="content != null">content,</if>
+                <if test="time != null">time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="logId != null">#{logId,jdbcType=INTEGER},</if>
+                <if test="content != null">#{content,jdbcType=VARCHAR},</if>
+                <if test="time != null">#{time,jdbcType=TIMESTAMP},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.blog.pojo.Log">
+        update log
+        <set>
+                <if test="content != null">
+                    content = #{content,jdbcType=VARCHAR},
+                </if>
+                <if test="time != null">
+                    time = #{time,jdbcType=TIMESTAMP},
+                </if>
+        </set>
+        where   log_id = #{logId,jdbcType=INTEGER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.blog.pojo.Log">
+        update log
+        set 
+            content =  #{content,jdbcType=VARCHAR},
+            time =  #{time,jdbcType=TIMESTAMP}
+        where   log_id = #{logId,jdbcType=INTEGER} 
+    </update>
+</mapper>

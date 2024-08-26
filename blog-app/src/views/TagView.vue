@@ -4,6 +4,7 @@
         <br>
         <el-container class="centered-container" style="width: 80%; margin: 0 auto;">
             <el-main>
+                <br>
                 <el-row class="grid-row">
                     <el-col v-for="Tag in Tags" :key="Tag.tagId" :span="6">
                         <div @click="viewTag(Tag.tagId)" class="grid-item">{{ `${Tag.tagName}` }}</div>
@@ -66,7 +67,6 @@ export default {
 
 .grid-item {
     background-color: #f8f9fa;
-    border: 1px solid #ddd;
     padding: 20px;
     text-align: center;
     font-size: 16px;

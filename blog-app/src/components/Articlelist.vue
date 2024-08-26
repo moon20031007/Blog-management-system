@@ -6,9 +6,9 @@
                 <p class="meta">By {{ users[article.authorId] }} on {{ $formatTime(article.publishTime) }}</p>
             </header>
             <section>
-                <span><i class="el-icon-view">{{ article.readCount }}</i></span>&nbsp;
+                <span><img :src="require('@/assets/images/view.png')" class="view-image">{{ article.readCount }}</span>&nbsp;
                 <span><i class="el-icon-chat-dot-round">{{ article.commentCount }}</i></span>&nbsp;
-                <span><i class="el-icon-star-off">{{ article.likeCount }}</i></span>
+                <span><img :src="require('@/assets/images/like.png')" class="like-image2">{{ article.likeCount }}</span>
             </section>
         </article>
     </div>
@@ -63,5 +63,21 @@ article header {
 article .meta {
     font-size: 0.9em;
     color: #666;
+}
+.like-image2 {
+    cursor: pointer;
+    width: 1.8%; /* 调整宽度 */
+    height: 1.8%; /* 调整高度 */
+    margin-right: -1px; /* 调整与右边文本的间距 */
+    margin-bottom: 4px; /* 向下移动图片 */
+    vertical-align: middle; /* 确保图片与文本垂直对齐 */
+}
+.view-image {
+    cursor: pointer;
+    width: 1.9%; /* 调整宽度 */
+    height: 1.9%; /* 调整高度 */
+    margin-right: -2px; /* 调整与右边文本的间距 */
+    margin-bottom: 2px; /* 向下移动图片 */
+    vertical-align: middle; /* 确保图片与文本垂直对齐 */
 }
 </style>

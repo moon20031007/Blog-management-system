@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.mapper.ArticleMapper">
+
+    <resultMap id="BaseResultMap" type="com.blog.pojo.Article">
+            <id property="articleId" column="article_id" jdbcType="INTEGER"/>
+            <result property="authorId" column="author_id" jdbcType="INTEGER"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="publishTime" column="publish_time" jdbcType="TIMESTAMP"/>
+            <result property="readCount" column="read_count" jdbcType="INTEGER"/>
+            <result property="likeCount" column="like_count" jdbcType="INTEGER"/>
+            <result property="commentCount" column="comment_count" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        article_id,author_id,content,title,
+        publish_time,read_count,like_count,
+        comment_count
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from article
+        where  article_id = #{articleId,jdbcType=INTEGER} 
+    </select>
+
+    <select id="hotarticles" resultType="com.blog.pojo.Article">
+        select
+        article_id, title
+        from article
+        order by read_count desc
+        limit 5
+    </select>
+
+    <select id="latestarticles" resultType="com.blog.pojo.Article">
+        select
+        article_id, title
+        from article
+        order by publish_time desc
+        limit 5
+    </select>
+
+    <select id="homearticles" resultType="com.blog.pojo.Article">
+        select
+        <include refid="Base_Column_List"/>
+        from article
+        order by (read_count / 10 + like_count + comment_count) desc
+        limit 10
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from article
+        where  article_id = #{articleId,jdbcType=INTEGER} 
+    </delete>
+
+    <insert id="insert" keyColumn="article_id" keyProperty="articleId" parameterType="com.blog.pojo.Article" useGeneratedKeys="true">
+        insert into article
+        ( article_id,author_id,title,content,
+        ,publish_time,read_count,like_count
+        ,comment_count)
+        values (#{articleId,jdbcType=INTEGER},#{authorId,jdbcType=INTEGER},#{title,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR}
+        ,#{publishTime,jdbcType=TIMESTAMP},#{readCount,jdbcType=INTEGER},#{likeCount,jdbcType=INTEGER}
+        ,#{commentCount,jdbcType=INTEGER})
+    </insert>
+
+    <insert id="insertSelective" keyColumn="article_id" keyProperty="articleId" parameterType="com.blog.pojo.Article" useGeneratedKeys="true">
+        insert into article
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="articleId != null">article_id,</if>
+                <if test="authorId != null">author_id,</if>
+                <if test="title != null">title,</if>
+                <if test="content != null">content,</if>
+                <if test="publishTime != null">publish_time,</if>
+                <if test="readCount != null">read_count,</if>
+                <if test="likeCount != null">like_count,</if>
+                <if test="commentCount != null">comment_count,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="articleId != null">#{articleId,jdbcType=INTEGER},</if>
+                <if test="authorId != null">#{authorId,jdbcType=INTEGER},</if>
+                <if test="title != null">#{title,jdbcType=VARCHAR},</if>
+                <if test="content != null">#{content,jdbcType=VARCHAR},</if>
+                <if test="publishTime != null">#{publishTime,jdbcType=TIMESTAMP},</if>
+                <if test="readCount != null">#{readCount,jdbcType=INTEGER},</if>
+                <if test="likeCount != null">#{likeCount,jdbcType=INTEGER},</if>
+                <if test="commentCount != null">#{commentCount,jdbcType=INTEGER},</if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.blog.pojo.Article">
+        update article
+        <set>
+                <if test="authorId != null">
+                    author_id = #{authorId,jdbcType=INTEGER},
+                </if>
+                <if test="title != null">
+                    title = #{title,jdbcType=VARCHAR},
+                </if>
+                <if test="content != null">
+                    content = #{content,jdbcType=VARCHAR},
+                </if>
+                <if test="publishTime != null">
+                    publish_time = #{publishTime,jdbcType=TIMESTAMP},
+                </if>
+                <if test="readCount != null">
+                    read_count = #{readCount,jdbcType=INTEGER},
+                </if>
+                <if test="likeCount != null">
+                    like_count = #{likeCount,jdbcType=INTEGER},
+                </if>
+                <if test="commentCount != null">
+                    comment_count = #{commentCount,jdbcType=INTEGER},
+                </if>
+        </set>
+        where   article_id = #{articleId,jdbcType=INTEGER} 
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.blog.pojo.Article">
+        update article
+        set 
+            author_id =  #{authorId,jdbcType=INTEGER},
+            title = #{content,jdbcType=VARCHAR},
+            content =  #{content,jdbcType=VARCHAR},
+            publish_time =  #{publishTime,jdbcType=TIMESTAMP},
+            read_count =  #{readCount,jdbcType=INTEGER},
+            like_count =  #{likeCount,jdbcType=INTEGER},
+            comment_count =  #{commentCount,jdbcType=INTEGER}
+        where   article_id = #{articleId,jdbcType=INTEGER} 
+    </update>
+</mapper>
