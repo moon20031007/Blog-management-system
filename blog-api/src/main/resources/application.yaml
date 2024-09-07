@@ -10,7 +10,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     url: jdbc:mysql://localhost:3306/blog?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=true #取决于数据库
     username: root
-    password: guohao1007 #改成自己的密码
+    password: 123456 #改成自己的密码
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 # mybatis-plus的配置

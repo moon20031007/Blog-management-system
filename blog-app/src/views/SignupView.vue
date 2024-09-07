@@ -80,7 +80,25 @@ export default {
                     { required: true, message: '请输入用户名', trigger: 'blur' }
                 ],
                 password: [
-                    { required: true, message: '请输入密码', trigger: 'blur' }
+                    { required: true, message: '请输入密码', trigger: 'blur' },
+                    { 
+                        min: 8, 
+                        message: '密码长度不能少于8位', 
+                        trigger: 'blur' 
+                    },
+                    { 
+                        validator: (rule, value, callback) => {
+                            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
+                            if (!value) {
+                                callback(new Error('请输入密码'));
+                            } else if (!regex.test(value)) {
+                                callback(new Error('密码必须包含大小写字母和数字'));
+                            } else {
+                                callback();
+                            }
+                        }, 
+                        trigger: 'blur'
+                    }
                 ],
                 check_password: [
                     { validator: validatePass, trigger: 'blur' }
@@ -92,7 +110,22 @@ export default {
                     { required: true, message: '请选择性别', trigger: 'change' }
                 ],
                 date: [
-                    { type: 'date', required: true, message: '请选择生日日期', trigger: 'change' }
+                    { type: 'date', required: true, message: '请选择生日日期', trigger: 'change' },
+                    { 
+                        validator: (rule, value, callback) => {
+                            if (!value) {
+                                callback(new Error('请选择生日日期'));
+                            } else {
+                                const today = new Date();
+                                if (value.getTime() > today.getTime()) {
+                                    callback(new Error('请输入正常的生日日期'));
+                                } else {
+                                    callback();
+                                }
+                            }
+                        }, 
+                        trigger: 'change'
+                    }
                 ],
                 phone: [
                     { required: true, message: '请输入电话号码', trigger: 'blur' }
